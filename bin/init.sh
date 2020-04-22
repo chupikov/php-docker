@@ -2,7 +2,7 @@
 # Creates required directories if not exist
 
 
-PROJ_DIR="mirasoltek"
+PROJ_DIR="etc"
 SELF_DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 ROOT_DIR="$(dirname ${SELF_DIR})"
 LOGS_DIR="${ROOT_DIR}/logs"

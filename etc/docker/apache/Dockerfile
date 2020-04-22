@@ -1,5 +1,5 @@
-ARG APACHE_VERSION=""
-FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
+ARG DOCKER_APACHE_VERSION=""
+FROM httpd:${DOCKER_APACHE_VERSION:+${DOCKER_APACHE_VERSION}-}alpine
 
 RUN apk update; \
     apk upgrade;
@@ -55,7 +55,7 @@ RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /usr/loca
 COPY .bashrc /root/.bashrc
 
 # Copy apache vhost file to proxy php requests to php-fpm container
-COPY demo.apache.conf /usr/local/apache2/conf/demo.apache.conf
-RUN echo "Include /usr/local/apache2/conf/demo.apache.conf" \
+COPY apache.conf /usr/local/apache2/conf/000-apache.conf
+RUN echo "Include /usr/local/apache2/conf/000-apache.conf" \
     >> /usr/local/apache2/conf/httpd.conf
 

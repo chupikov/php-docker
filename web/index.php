@@ -21,6 +21,7 @@
         <h1>Whoa!!!</h1>
         <section>
             <p>PHP <?= PHP_VERSION ?>/FCGID, MariaDB, Apache - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.</p>
+            <p>Web root directory in the container: <?= __DIR__ ?></p>
             <p><a href="pi.php">PHP Info</a></p>
             <p>Coolest solution ever! :)</p>
             <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
@@ -39,7 +40,7 @@
         <section>
             <ul class="copyright">
                 <li>&copy; 2019 Nimpen J. Nordström</li>
-                <li>&copy; 2019 Yaroslav Chupikov</li>
+                <li>&copy; 2020 Yaroslav Chupikov</li>
             </ul>
         </section>
     </body>

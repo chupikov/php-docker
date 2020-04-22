@@ -1,5 +1,5 @@
 !/logs
 /logs/*
-!/mirasoltek/docker/mysql/data
-/mirasoltek/docker/mysql/data/*
+!/etc/docker/mysql/data
+/etc/docker/mysql/data/*
 

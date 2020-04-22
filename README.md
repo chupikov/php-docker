@@ -18,9 +18,9 @@ DIRECTORY STRUCTURE
 All directories are required.
 
 * bin
-* html
+* web
 * logs
-* mirasoltek/docker
+* etc/docker
     * apache 
     * mysql
         * data
@@ -41,6 +41,16 @@ Windows OS notes
 * Shell scripts could be executed in MinGW (e.g. GIT Bash) console.
 * Impossible connect container using `docker exec` command because TTY not supported. But this command perfectly working in PowerShell console.
 
+
+CONFIGURATION
+=============
+
+Database
+--------
+
+In purpose of disable database access from frontend network comment `frontend` network in the `docker-compose.yml` file.
+
+
 USAGE
 =====
 
@@ -58,7 +68,7 @@ Stop
 docker-compose down
 ```
 
-Connect MariaDB container
+Connect database container
 -------------------------
 
 If required some actions in the database with root privileges.
@@ -76,6 +86,27 @@ If required execute some code in the console.
 ```sh
 docker exec -it docker_test_apache /bin/bash
 ```
+
+Connect PHP container
+-------------------------
+
+If required execute some code in the console.
+
+```sh
+docker exec -it docker_test_php /bin/sh
+```
+
+Connect database from host computer
+-----------------------------------
+
+```sh
+mysql -h 127.0.0.1 -u <DOCKER_DB_USERNAME> -p <DOCKER_DB_NAME>
+```
+
+Use value of the <DOCKER_DB_PASSWORD> as password.
+
+In purpose of connect database as **root user** please refer to chapter _"Connect database container"_ above.
+
 
 COPYRIGHT
 =========
