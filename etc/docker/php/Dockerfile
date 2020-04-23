@@ -1,25 +1,45 @@
 ARG PHP_VERSION=""
+ARG USER_ID=""
+ARG GROUP_ID=""
+
 FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
 
 RUN apk update; \
     apk upgrade;
 
 RUN apk add \
+    shadow \
+    dpkg-dev \
+    dpkg \
+    gcc \
+    g++ \
+    autoconf \
+    file \
     bash \
     mc \
-    curl;
+    curl \
+    wget;
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql
-#RUN docker-php-ext-install mysqli
-#RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install \
+    mbstring \
+    pdo \
+    pdo_mysql \
+    mysqli \
+    opcache;
 
-#RUN apk add \
-#   php7-pdo \
-#   php7-mysqli \
-#   php7-sqlite3 \
-#   php7-pdo_mysql \
-#   php7-pdo_sqlite \
-#   php7-exif;
+# UNABLE INSTALL XDEBUG!!!
+#RUN docker-php-ext-install \
+#    mbstring \
+#    pdo \
+#    pdo_mysql \
+#    mysqli \
+#    opcache \
+#    && pecl install xdebug \
+#    && docker-php-ext-enable xdebug;
+
+RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
+
+USER "${USER_ID}:${GROUP_ID}"
 
 COPY .bashrc /root/.bashrc
 
