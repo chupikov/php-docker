@@ -50,6 +50,17 @@ Database
 
 In purpose of disable database access from frontend network comment `frontend` network in the `docker-compose.yml` file.
 
+### DOCKER_DATABASE_ENGINE
+
+Possible values:
+
+* [mariadb](https://hub.docker.com/_/mariadb)
+  * DOCKER_DATABASE_ENGINE=mariadb
+  * DOCKER_DATABASE_VERSION=10.3
+* [mysql](https://hub.docker.com/_/mysql)
+  * DOCKER_DATABASE_ENGINE=mysql
+  * DOCKER_DATABASE_VERSION=5.7
+
 
 USAGE
 =====
@@ -93,7 +104,7 @@ Connect PHP container
 If required execute some code in the console.
 
 ```sh
-docker exec -it docker_test_php /bin/sh
+docker exec -it docker_test_php /bin/bash
 ```
 
 Connect database from host computer
@@ -106,6 +117,18 @@ mysql -h 127.0.0.1 -u <DOCKER_DB_USERNAME> -p <DOCKER_DB_NAME>
 Use value of the <DOCKER_DB_PASSWORD> as password.
 
 In purpose of connect database as **root user** please refer to chapter _"Connect database container"_ above.
+
+
+Connect database from PHP
+-------------------------
+
+Use `database` (service name from "docker-compose.yml") as host name.
+
+For example:
+
+```php
+$mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');
+```
 
 
 COPYRIGHT

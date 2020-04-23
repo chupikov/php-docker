@@ -3,42 +3,47 @@ version: "3.2"
 services:
 
   php:
+    container_name: "${CONTAINER_NAME_PHP}"
     build: 
       context: "${PROJECT_DIR}/docker/php/"
       args:
-       PHP_VERSION: ${DOCKER_PHP_VERSION}
+        PHP_VERSION: ${DOCKER_PHP_VERSION}
+    depends_on:
+      - database
     networks:
+      - frontend
       - backend
     volumes:
       - ${WEB_ROOT_DIR}:/var/www/html/
       - ${WEB_LOGS_DIR}:/var/log/apache2/
-    container_name: "${CONTAINER_NAME_PHP}"
 
   apache:
+    container_name: "${CONTAINER_NAME_APACHE}"
     build:
       context: ${PROJECT_DIR}/docker/apache/
       args:
        APACHE_VERSION: ${DOCKER_APACHE_VERSION}
     depends_on:
       - php
-      - mariadb
+      - database
     networks:
-      - backend
       - frontend
+      - backend
     ports:
       - "${CONTAINER_PORT_APACHE}:80"
     volumes:
       - ${WEB_ROOT_DIR}:/var/www/html/
       - ${WEB_LOGS_DIR}:/var/log/apache2/
-    container_name: "${CONTAINER_NAME_APACHE}"
 
-  mariadb:
-    image: mariadb:${DOCKER_DATABASE_VERSION:-latest}
+  database:
+    container_name: "${CONTAINER_NAME_DATABASE}"
+    image: ${DOCKER_DATABASE_ENGINE}:${DOCKER_DATABASE_VERSION:-latest}
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
       - "${CONTAINER_PORT_DATABASE}:3306"
     volumes:
-      - ${PROJECT_DIR}/docker/mysql/data:/var/lib/mysql
+      - ${PROJECT_DIR}/docker/mysql/data-${DOCKER_DATABASE_ENGINE}:/var/lib/mysql
     networks:
       - backend
       - frontend
@@ -47,7 +52,6 @@ services:
       MYSQL_DATABASE: "${DOCKER_DB_NAME}"
       MYSQL_USER: "${DOCKER_DB_USERNAME}"
       MYSQL_PASSWORD: "${DOCKER_DB_PASSWORD}"
-    container_name: "${CONTAINER_NAME_DATABASE}"
 
 #  adminer:
 #    image: adminer

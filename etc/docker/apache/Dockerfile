@@ -1,5 +1,5 @@
-ARG DOCKER_APACHE_VERSION=""
-FROM httpd:${DOCKER_APACHE_VERSION:+${DOCKER_APACHE_VERSION}-}alpine
+ARG APACHE_VERSION=""
+FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
 
 RUN apk update; \
     apk upgrade;

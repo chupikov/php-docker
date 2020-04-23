@@ -2,4 +2,6 @@
 /logs/*
 !/etc/docker/mysql/data
 /etc/docker/mysql/data/*
+!/etc/docker/mysql/data-*
+/etc/docker/mysql/data-*/*
 
