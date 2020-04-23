@@ -55,11 +55,11 @@ In purpose of disable database access from frontend network comment `frontend` n
 Possible values:
 
 * [mariadb](https://hub.docker.com/_/mariadb)
-  * DOCKER_DATABASE_ENGINE=mariadb
-  * DOCKER_DATABASE_VERSION=10.3
+    * DOCKER_DATABASE_ENGINE=mariadb
+    * DOCKER_DATABASE_VERSION=10.3
 * [mysql](https://hub.docker.com/_/mysql)
-  * DOCKER_DATABASE_ENGINE=mysql
-  * DOCKER_DATABASE_VERSION=5.7
+    * DOCKER_DATABASE_ENGINE=mysql
+    * DOCKER_DATABASE_VERSION=5.7
 
 
 USAGE
