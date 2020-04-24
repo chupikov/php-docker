@@ -1,10 +1,14 @@
 ARG APACHE_VERSION=""
+ARG USER_ID=""
+ARG GROUP_ID=""
+
 FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
 
 RUN apk update; \
     apk upgrade;
 
 RUN apk add \
+    shadow \
 	bash \
 	mc \
 	git \
@@ -52,10 +56,14 @@ RUN apk add \
 
 RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /usr/local/apache2/conf/httpd.conf;
 
+# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
+
+USER "${USER_ID}:${GROUP_ID}"
+
 COPY .bashrc /root/.bashrc
 
 # Copy apache vhost file to proxy php requests to php-fpm container
-COPY demo.apache.conf /usr/local/apache2/conf/demo.apache.conf
-RUN echo "Include /usr/local/apache2/conf/demo.apache.conf" \
+COPY apache.conf /usr/local/apache2/conf/000-apache.conf
+RUN echo "Include /usr/local/apache2/conf/000-apache.conf" \
     >> /usr/local/apache2/conf/httpd.conf
 
