@@ -53,8 +53,8 @@ All directories are required.
 * logs
 * etc/docker
     * apache 
-    * mysql
-        * data
+    * database
+        * data-(mysql|mariadb)
     * php
 
 NOTES

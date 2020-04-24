@@ -81,7 +81,12 @@ if (class_exists('\mysqli')) {
     <body>
         <h1>Whoa!!!</h1>
         <section>
-            <p>PHP/FCGID+opcache, <?= preg_match('/(mariadb|mysql)/i', $dbVersion, $m) ? $m[1] : '&lt;UNKNOWN_DB&gt;' ?>, Apache - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.</p>
+            <p>
+                PHP-FPM<?php if (extension_loaded('Zend OPcache')) : ?> <i>(with opcache)</i><?php else : ?> <i>(without opcache)</i><?php endif ?>,
+                <?= preg_match('/(mariadb|mysql)/i', $dbVersion, $m) ? $m[1] : '&lt;UNKNOWN_DB&gt;' ?>,
+                Apache
+                - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.
+            </p>
             <table>
                 <tr>
                     <td>PHP</td>

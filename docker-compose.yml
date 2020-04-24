@@ -47,7 +47,7 @@ services:
     ports:
       - "${CONTAINER_PORT_DATABASE}:3306"
     volumes:
-      - ${PROJECT_DIR}/docker/mysql/data-${DOCKER_DATABASE_ENGINE}:/var/lib/mysql
+      - ${PROJECT_DIR}/docker/database/data-${DOCKER_DATABASE_ENGINE}:/var/lib/mysql
     networks:
       - backend
       - frontend
