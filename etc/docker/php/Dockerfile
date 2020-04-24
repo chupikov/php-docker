@@ -37,7 +37,7 @@ RUN docker-php-ext-install \
 #    && pecl install xdebug \
 #    && docker-php-ext-enable xdebug;
 
-RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
+# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
 
 USER "${USER_ID}:${GROUP_ID}"
 

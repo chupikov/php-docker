@@ -4,6 +4,37 @@ Universal Docker solution for PHP
 * Environment configured according to this article: https://á.se/damp-docker-apache-mariadb-php-fpm/
 * Using docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
 
+FEATURES
+========
+
+* [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
+    * opcache
+    * mbstring
+    * pdo
+    * pdo_mysql
+    * mysqli
+* Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
+* Web server: Apache 2.4
+
+
+KNOWN ISSUES
+============
+
+Not installed PHP extensions
+----------------------------
+
+* xdebug
+* gd
+* imagic
+
+Missing Alpine Linux packages
+-----------------------------
+
+Sometimes when install PHP extension some Alpine Linux dependencies missing.
+
+Please check [List of Alpine Linux packages](https://pkgs.alpinelinux.org/packages?branch=edge&arch=x86_64).
+
+
 INSTALL
 =======
 
@@ -202,13 +233,6 @@ Extensions of the "docker-php-ext-install"
 * xsl
 * zend_test
 * zip
-
-Missing Alpine Linux packages
------------------------------
-
-Sometimes when install PHP extension some Alpine Linux dependencies missing.
-
-Please check [List of Alpine Linux packages](https://pkgs.alpinelinux.org/packages?branch=edge&arch=x86_64).
 
 
 COPYRIGHT

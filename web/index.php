@@ -32,6 +32,14 @@ if (class_exists('\mysqli')) {
             body {
                 font-family: arial, helvetica, sans-serif;
                 font-size: 18px;
+                line-height: 1.3;
+            }
+            a {
+                transition-duration: .3s;
+                color: #007bff;
+            }
+            a:hover {
+                color: #0056b3;
             }
             table {
                 border-collapse: collapse;
@@ -40,6 +48,13 @@ if (class_exists('\mysqli')) {
             td, th {
                 padding: 7px;
                 border: 1px solid #999;
+            }
+            pre {
+                margin: 15px 0;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #f5f5f5;
             }
             .error {
                 padding: 15px;
@@ -66,7 +81,7 @@ if (class_exists('\mysqli')) {
     <body>
         <h1>Whoa!!!</h1>
         <section>
-            <p>PHP/FCGID, <?= preg_match('/(mariadb|mysql)/i', $dbVersion, $m) ? $m[1] : '&lt;UNKNOWN_DB&gt;' ?>, Apache - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.</p>
+            <p>PHP/FCGID+opcache, <?= preg_match('/(mariadb|mysql)/i', $dbVersion, $m) ? $m[1] : '&lt;UNKNOWN_DB&gt;' ?>, Apache - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.</p>
             <table>
                 <tr>
                     <td>PHP</td>
@@ -101,8 +116,15 @@ if (class_exists('\mysqli')) {
         <section>
             <h2>Information</h2>
             <ul>
-                <li>Environment configured according to article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/" target="_blank">DAMP – Docker, Apache, MariaDB & PHP-FPM</a>.
-                <li><a href="https://linoxide.com/linux-how-to/ssh-docker-container/" target="_blank">Using docker exec command</a>
+                <li>Environment configured according to article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/" target="_blank">DAMP – Docker, Apache, MariaDB & PHP-FPM</a>.</li>
+                <li><a href="https://linoxide.com/linux-how-to/ssh-docker-container/" target="_blank">Using docker exec command</a></li>
+                <li><strong><a href="https://docs.docker.com/">Docker</a></strong>:
+                    <ul>
+                        <li><a href="https://hub.docker.com/_/php">PHP</a></li>
+                        <li><a href="https://hub.docker.com/_/mysql">MySQL</a></li>
+                        <li><a href="https://hub.docker.com/_/mariadb">MariaDB</a></li>
+                    </ul>
+                </li>
             </ul>
         </section>
 
