@@ -1,7 +1,7 @@
 Universal Docker solution for PHP
 =================================
 
-* Environment configured according to this article: https://á.se/damp-docker-apache-mariadb-php-fpm/
+* Environment configured according to this article: https://ï¿½.se/damp-docker-apache-mariadb-php-fpm/
 * Using docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
 
 FEATURES
@@ -9,6 +9,7 @@ FEATURES
 
 * [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
     * opcache
+    * xdebug
     * mbstring
     * pdo
     * pdo_mysql
@@ -23,7 +24,6 @@ KNOWN ISSUES
 Not installed PHP extensions
 ----------------------------
 
-* xdebug
 * gd
 * imagic
 
@@ -92,6 +92,12 @@ Possible values:
     * DOCKER_DATABASE_ENGINE=mysql
     * DOCKER_DATABASE_VERSION=5.7
 
+XDEBUG
+------
+
+Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
+
+For Windows hosts value should be **host.docker.internal**.
 
 USAGE
 =====
@@ -238,6 +244,6 @@ Extensions of the "docker-php-ext-install"
 COPYRIGHT
 =========
 
-* (C) 2019 Nimpen J. Nordström
+* (C) 2019 Nimpen J. Nordstrï¿½m
 * (C) 2019 Yaroslav Chupikov
 

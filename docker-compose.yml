@@ -4,7 +4,7 @@ services:
 
   php:
     container_name: "${CONTAINER_NAME_PHP}"
-    build: 
+    build:
       context: "${PROJECT_DIR}/docker/php/"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
@@ -18,6 +18,8 @@ services:
     volumes:
       - ${WEB_ROOT_DIR}:/var/www/html/
       - ${WEB_LOGS_DIR}:/var/log/apache2/
+    environment:
+      XDEBUG_CONFIG: "remote_host=${DOCKER_XDEBUG_REMOTE_HOST} remote_enable=1 remote_handler=dbgp remote_cookie_expire_time=21600"
 
   apache:
     container_name: "${CONTAINER_NAME_APACHE}"

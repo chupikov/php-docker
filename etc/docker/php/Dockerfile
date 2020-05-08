@@ -8,6 +8,8 @@ RUN apk update; \
     apk upgrade;
 
 RUN apk add \
+    libxml2-dev \
+	libzip-dev \
     shadow \
     dpkg-dev \
     dpkg \
@@ -15,10 +17,15 @@ RUN apk add \
     g++ \
     autoconf \
     file \
+	cmake \
+	make \
     bash \
     mc \
     curl \
     wget;
+
+RUN pecl install \
+	xdebug
 
 RUN docker-php-ext-install \
     mbstring \
@@ -34,12 +41,14 @@ RUN docker-php-ext-install \
 #    pdo_mysql \
 #    mysqli \
 #    opcache \
-#    && pecl install xdebug \
-#    && docker-php-ext-enable xdebug;
+
+RUN docker-php-ext-enable \
+	xdebug
 
 # RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
 
 USER "${USER_ID}:${GROUP_ID}"
 
+COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY .bashrc /root/.bashrc
 

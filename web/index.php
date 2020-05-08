@@ -31,7 +31,7 @@ if (class_exists('\mysqli')) {
         <style>
             body {
                 font-family: arial, helvetica, sans-serif;
-                font-size: 18px;
+                font-size: 16px;
                 line-height: 1.3;
             }
             a {
@@ -79,10 +79,14 @@ if (class_exists('\mysqli')) {
         </style>
     </head>
     <body>
-        <h1>Whoa!!!</h1>
+        <h1>Docker for PHP</h1>
         <section>
             <p>
-                PHP-FPM<?php if (extension_loaded('Zend OPcache')) : ?> <i>(with opcache)</i><?php else : ?> <i>(without opcache)</i><?php endif ?>,
+                PHP-FPM
+                    <i>
+                        (with<?php if (! extension_loaded('Zend OPcache')) : ?>out<?php endif ?> opcache,
+                        with<?php if (! extension_loaded('xdebug')) : ?>out<?php endif ?> xdebug),
+                    </i>
                 <?= preg_match('/(mariadb|mysql)/i', $dbVersion, $m) ? $m[1] : '&lt;UNKNOWN_DB&gt;' ?>,
                 Apache
                 - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.
@@ -103,7 +107,6 @@ if (class_exists('\mysqli')) {
             </table>
             <p>Web root directory in the container: <?= __DIR__ ?></p>
             <p><a href="pi.php">PHP Info</a></p>
-            <p>Coolest solution ever! :)</p>
             <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
         </section>
 
@@ -117,7 +120,7 @@ if (class_exists('\mysqli')) {
         <?php if (! empty($dbError)) : ?>
         <div class="error"><?= $dbError ?></div>
         <?php endif ?>
-        
+
         <section>
             <h2>Information</h2>
             <ul>
@@ -133,8 +136,17 @@ if (class_exists('\mysqli')) {
             </ul>
         </section>
 
+        <section>
+            <h2>Available PHP extensions</h2>
+            <ol>
+                <?php foreach (get_loaded_extensions() as $ext) : ?>
+                    <li><?= $ext ?></li>
+                <?php endforeach ?>
+            </ol>
+        </section>
+
         <hr />
-        
+
         <section>
             <ul class="copyright">
                 <li>&copy; 2019 Nimpen J. Nordström</li>
