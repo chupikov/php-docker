@@ -40,8 +40,8 @@ INSTALL
 
 After clone/copy source files:
 
-1. Configure `.env`.
-2. Run `bin/init.sh` - script creates required directories.
+1. Run `bin/init.sh` - script creates requiredfiles and  directories.
+2. Configure `.env`.
 
 DIRECTORY STRUCTURE
 ===================
@@ -96,6 +96,8 @@ XDEBUG
 ------
 
 Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
+
+For Linux hosts value could be **172.17.0.1**.
 
 For Windows hosts value should be **host.docker.internal**.
 

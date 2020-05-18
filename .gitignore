@@ -1,9 +1,9 @@
 /.idea
 
+/.env
 !/logs
 /logs/*
 !/etc/docker/database/data
 /etc/docker/database/data/*
 !/etc/docker/database/data-*
 /etc/docker/database/data-*/*
-
