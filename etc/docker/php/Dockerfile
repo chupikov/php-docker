@@ -10,6 +10,12 @@ RUN apk update; \
 RUN apk add \
     libxml2-dev \
 	libzip-dev \
+	freetype \
+	libpng \
+	libjpeg-turbo \
+	freetype-dev \
+	libpng-dev \
+	libjpeg-turbo-dev \
     shadow \
     dpkg-dev \
     dpkg \
@@ -24,6 +30,14 @@ RUN apk add \
     curl \
     wget;
 
+RUN docker-php-ext-configure gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/
+
+RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
+    gd
+
 RUN pecl install \
 	xdebug
 
@@ -34,16 +48,11 @@ RUN docker-php-ext-install \
     mysqli \
     opcache;
 
-# UNABLE INSTALL XDEBUG!!!
-#RUN docker-php-ext-install \
-#    mbstring \
-#    pdo \
-#    pdo_mysql \
-#    mysqli \
-#    opcache \
-
 RUN docker-php-ext-enable \
 	xdebug
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 # RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
 

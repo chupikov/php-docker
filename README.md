@@ -14,6 +14,7 @@ FEATURES
     * pdo
     * pdo_mysql
     * mysqli
+    * gd
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
@@ -24,8 +25,8 @@ KNOWN ISSUES
 Not installed PHP extensions
 ----------------------------
 
-* gd
 * imagic
+* intl
 
 Missing Alpine Linux packages
 -----------------------------
