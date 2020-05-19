@@ -15,6 +15,7 @@ FEATURES
     * pdo_mysql
     * mysqli
     * gd
+    * imagick
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
@@ -36,7 +37,6 @@ to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
 Not installed PHP extensions
 ----------------------------
 
-* imagic
 * intl
 
 Missing Alpine Linux packages

@@ -32,7 +32,7 @@ if (class_exists('\mysqli')) {
             body {
                 font-family: arial, helvetica, sans-serif;
                 font-size: 16px;
-                line-height: 1.3;
+                line-height: 1.7;
             }
             a {
                 transition-duration: .3s;
@@ -55,6 +55,9 @@ if (class_exists('\mysqli')) {
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 background-color: #f5f5f5;
+            }
+            .with-columns {
+                columns: 200px auto;
             }
             .error {
                 padding: 15px;
@@ -138,8 +141,14 @@ if (class_exists('\mysqli')) {
 
         <section>
             <h2>Available PHP extensions</h2>
-            <ol>
-                <?php foreach (get_loaded_extensions() as $ext) : ?>
+            <ol class="with-columns">
+                <?php
+                $extensions = get_loaded_extensions();
+                array_walk($extensions, static function(&$val){
+                    $val = strtolower($val);
+                });
+                sort($extensions);
+                foreach ($extensions as $ext) : ?>
                     <li><?= $ext ?></li>
                 <?php endforeach ?>
             </ol>
