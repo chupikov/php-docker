@@ -7,10 +7,14 @@ FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
 RUN apk update; \
     apk upgrade;
 
-RUN apk add \
+RUN apk add --update --no-cache \
+    libintl \
+    icu \
+    icu-dev \
     libxml2-dev \
 	libzip-dev \
 	freetype \
+	libmcrypt-dev \
 	libpng \
 	libjpeg-turbo \
 	freetype-dev \
@@ -43,6 +47,9 @@ RUN pecl install \
 
 RUN docker-php-ext-install \
     mbstring \
+    intl \
+    zip \
+    soap \
     pdo \
     pdo_mysql \
     mysqli \

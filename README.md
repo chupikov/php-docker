@@ -16,6 +16,7 @@ FEATURES
     * mysqli
     * gd
     * imagick
+    * 43 PHP extensions in total
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
