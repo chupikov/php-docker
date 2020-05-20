@@ -44,7 +44,11 @@ services:
   database:
     container_name: "${CONTAINER_NAME_DATABASE}"
     image: ${DOCKER_DATABASE_ENGINE}:${DOCKER_DATABASE_VERSION:-latest}
-    command: --default-authentication-plugin=mysql_native_password
+    command:
+      - --default-authentication-plugin=mysql_native_password
+#      - --init-connect='SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
     restart: always
     ports:
       - "${CONTAINER_PORT_DATABASE}:3306"
