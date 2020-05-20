@@ -10,13 +10,14 @@ FEATURES
 * [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
     * opcache
     * xdebug
+    * [igbinary](https://github.com/igbinary/igbinary)
     * mbstring
     * pdo
     * pdo_mysql
     * mysqli
     * gd
     * imagick
-    * 43 PHP extensions in total
+    * 44 PHP extensions in total
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 

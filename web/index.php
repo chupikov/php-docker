@@ -22,6 +22,10 @@ if (class_exists('\mysqli')) {
     $dbError = 'Class "\mysqli" not found!';
 }
 
+$extLinks = [
+    'igbinary' => 'https://github.com/igbinary/igbinary',
+    'zend opcache' => 'https://www.php.net/manual/en/book.opcache.php',
+];
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,6 +44,22 @@ if (class_exists('\mysqli')) {
             }
             a:hover {
                 color: #0056b3;
+            }
+            a.button {
+                display: inline-block;
+                padding: 1px 15px;
+                color: #fff;
+                background-color: #007bff;
+                border: 1px solid #007bff;
+                border-radius: 4px;
+                text-decoration: none;
+            }
+            a.button:hover {
+                border-color: #0069d9;
+                background-color: #0069d9;
+            }
+            ol a, ul a {
+                text-decoration: none;
             }
             table {
                 border-collapse: collapse;
@@ -94,10 +114,14 @@ if (class_exists('\mysqli')) {
                 Apache
                 - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.
             </p>
+            <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
             <table>
                 <tr>
                     <td>PHP</td>
-                    <td><?= PHP_VERSION ?></td>
+                    <td>
+                        <?= PHP_VERSION ?>
+                        <a href="pi.php" class="button" style="float:right">PHP Info</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Database</td>
@@ -109,8 +133,6 @@ if (class_exists('\mysqli')) {
                 </tr>
             </table>
             <p>Web root directory in the container: <?= __DIR__ ?></p>
-            <p><a href="pi.php">PHP Info</a></p>
-            <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
         </section>
 
         <section>
@@ -127,7 +149,6 @@ if (class_exists('\mysqli')) {
         <section>
             <h2>Information</h2>
             <ul>
-                <li>Environment configured according to article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/" target="_blank">DAMP – Docker, Apache, MariaDB & PHP-FPM</a>.</li>
                 <li><a href="https://linoxide.com/linux-how-to/ssh-docker-container/" target="_blank">Using docker exec command</a></li>
                 <li><strong><a href="https://docs.docker.com/">Docker</a></strong>:
                     <ul>
@@ -149,7 +170,13 @@ if (class_exists('\mysqli')) {
                 });
                 sort($extensions);
                 foreach ($extensions as $ext) : ?>
-                    <li><?= $ext ?></li>
+                    <li>
+                        <?php if (array_key_exists($ext, $extLinks)) : ?>
+                            <a href="<?= $extLinks[$ext] ?>"><?= $ext ?></a>
+                        <?php else : ?>
+                            <?= $ext ?>
+                        <?php endif ?>
+                    </li>
                 <?php endforeach ?>
             </ol>
         </section>

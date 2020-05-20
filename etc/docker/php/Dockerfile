@@ -43,7 +43,8 @@ RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
     gd
 
 RUN pecl install \
-	xdebug
+	xdebug \
+	igbinary
 
 RUN docker-php-ext-install \
     mbstring \
@@ -56,7 +57,8 @@ RUN docker-php-ext-install \
     opcache;
 
 RUN docker-php-ext-enable \
-	xdebug
+	xdebug \
+	igbinary
 
 RUN set -ex \
     && apk add --no-cache --virtual .phpize-deps ${PHPIZE_DEPS} imagemagick imagemagick-dev libtool \
