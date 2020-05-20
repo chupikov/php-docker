@@ -58,6 +58,7 @@ RUN docker-php-ext-install \
     bz2 \
     zip \
     soap \
+    exif \
     pdo \
     pdo_mysql \
     mysqli \
@@ -65,7 +66,8 @@ RUN docker-php-ext-install \
 
 RUN docker-php-ext-enable \
 	xdebug \
-	igbinary
+	igbinary \
+	exif
 
 RUN set -ex \
     && apk add --no-cache --virtual .phpize-deps ${PHPIZE_DEPS} imagemagick imagemagick-dev libtool \

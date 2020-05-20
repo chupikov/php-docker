@@ -29,11 +29,6 @@ Because of this default database server changed
 from _[MariaDB 10.3](https://hub.docker.com/_/mariadb)_
 to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
 
-Not installed PHP extensions
-----------------------------
-
-* exif
-
 Missing Alpine Linux packages
 -----------------------------
 
@@ -190,6 +185,7 @@ Installed PHP extensions
 1. curl
 1. date
 1. dom
+1. exif
 1. fileinfo
 1. filter
 1. ftp
