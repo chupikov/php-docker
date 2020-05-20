@@ -15,7 +15,9 @@ RUN apk add --update --no-cache \
     gettext-dev \
     libxml2-dev \
 	libzip-dev \
-	freetype \
+    libbz2 \
+    bzip2-dev \
+    freetype \
 	libmcrypt-dev \
 	libpng \
 	libjpeg-turbo \
@@ -34,6 +36,7 @@ RUN apk add --update --no-cache \
     bash \
     mc \
     curl \
+    unzip \
     wget;
 
 RUN docker-php-ext-configure gd \
@@ -52,6 +55,7 @@ RUN docker-php-ext-install \
     mbstring \
     intl \
     gettext \
+    bz2 \
     zip \
     soap \
     pdo \

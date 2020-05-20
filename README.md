@@ -10,7 +10,7 @@ FEATURES
 * [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
     * opcache
     * xdebug
-    * 45 PHP extensions
+    * PHP extensions (see below)
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
@@ -18,8 +18,8 @@ FEATURES
 KNOWN ISSUES
 ============
 
-MariaDB does not starts on Windows hosts
-----------------------------------------
+MariaDB does not start on Windows hosts
+---------------------------------------
 
 MariaDB container doesn't start on Windows hosts with shared databases volume.
 
@@ -32,7 +32,6 @@ to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
 Not installed PHP extensions
 ----------------------------
 
-* bz2
 * exif
 
 Missing Alpine Linux packages
@@ -184,6 +183,7 @@ PHP Extensions
 Installed PHP extensions
 ------------------------
 
+1. bz2
 1. cgi-fcgi
 1. core
 1. ctype
