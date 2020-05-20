@@ -10,14 +10,7 @@ FEATURES
 * [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
     * opcache
     * xdebug
-    * [igbinary](https://github.com/igbinary/igbinary)
-    * mbstring
-    * pdo
-    * pdo_mysql
-    * mysqli
-    * gd
-    * imagick
-    * 44 PHP extensions in total
+    * 45 PHP extensions
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
@@ -39,7 +32,8 @@ to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
 Not installed PHP extensions
 ----------------------------
 
-* intl
+* bz2
+* exif
 
 Missing Alpine Linux packages
 -----------------------------
@@ -187,8 +181,57 @@ $mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');
 PHP Extensions
 ==============
 
-Extensions of the "docker-php-ext-install"
-------------------------------------------
+Installed PHP extensions
+------------------------
+
+1. cgi-fcgi
+1. core
+1. ctype
+1. curl
+1. date
+1. dom
+1. fileinfo
+1. filter
+1. ftp
+1. gd
+1. gettext
+1. hash
+1. iconv
+1. igbinary
+1. imagick
+1. intl
+1. json
+1. libxml
+1. mbstring
+1. mysqli
+1. mysqlnd
+1. openssl
+1. pcre
+1. pdo
+1. pdo_mysql
+1. pdo_sqlite
+1. phar
+1. posix
+1. readline
+1. reflection
+1. session
+1. simplexml
+1. soap
+1. sodium
+1. spl
+1. sqlite3
+1. standard
+1. tokenizer
+1. xdebug
+1. xml
+1. xmlreader
+1. xmlwriter
+1. zend opcache
+1. zip
+1. zlib
+
+Extensions available for "docker-php-ext-install"
+----------------------------------------------------
 
 * bcmath
 * bz2

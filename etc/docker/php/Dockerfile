@@ -11,6 +11,8 @@ RUN apk add --update --no-cache \
     libintl \
     icu \
     icu-dev \
+    gettext \
+    gettext-dev \
     libxml2-dev \
 	libzip-dev \
 	freetype \
@@ -49,6 +51,7 @@ RUN pecl install \
 RUN docker-php-ext-install \
     mbstring \
     intl \
+    gettext \
     zip \
     soap \
     pdo \

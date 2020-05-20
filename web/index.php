@@ -23,7 +23,9 @@ if (class_exists('\mysqli')) {
 }
 
 $extLinks = [
+    'gettext' => 'https://www.php.net/manual/en/function.gettext.php',
     'igbinary' => 'https://github.com/igbinary/igbinary',
+    'xdebug' => 'https://xdebug.org/docs/',
     'zend opcache' => 'https://www.php.net/manual/en/book.opcache.php',
 ];
 ?>
