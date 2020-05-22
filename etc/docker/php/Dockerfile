@@ -21,10 +21,12 @@ RUN apk add --update --no-cache \
 	libmcrypt-dev \
 	libpng \
 	libjpeg-turbo \
+	libjpeg-turbo-dev \
 	freetype-dev \
 	libpng-dev \
-	libjpeg-turbo-dev \
     shadow \
+    libwebp \
+    libwebp-dev \
     dpkg-dev \
     dpkg \
     gcc \
@@ -37,12 +39,14 @@ RUN apk add --update --no-cache \
     mc \
     curl \
     unzip \
+    ffmpeg \
     wget;
 
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
     --with-png-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/
+    --with-jpeg-dir=/usr/include/ \
+    --with-webp-dir=/usr/include/
 
 RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
     gd
@@ -80,10 +84,14 @@ RUN set -ex \
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
+WORKDIR /var/www/html
+
 # RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
 
 USER "${USER_ID}:${GROUP_ID}"
 
 COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY .bashrc /root/.bashrc
+COPY install.sh /root/install.sh
 
+RUN /root/install.sh
