@@ -13,7 +13,6 @@ display_errors = On
 display_startup_errors = On
 log_errors = On
 log_errors_max_len = 2048
-track_errors = On
 html_errors = On
 error_log = "/var/logs/php_error.log"
 upload_max_filesize = 20M
