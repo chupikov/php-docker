@@ -7,7 +7,23 @@ FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
 RUN apk update; \
     apk upgrade;
 
-RUN apk add \
+RUN apk add --update --no-cache \
+    libintl \
+    icu \
+    icu-dev \
+    gettext \
+    gettext-dev \
+    libxml2-dev \
+	libzip-dev \
+    libbz2 \
+    bzip2-dev \
+    freetype \
+	libmcrypt-dev \
+	libpng \
+	libjpeg-turbo \
+	freetype-dev \
+	libpng-dev \
+	libjpeg-turbo-dev \
     shadow \
     dpkg-dev \
     dpkg \
@@ -15,31 +31,59 @@ RUN apk add \
     g++ \
     autoconf \
     file \
+	cmake \
+	make \
     bash \
     mc \
     curl \
+    unzip \
     wget;
+
+RUN docker-php-ext-configure gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/
+
+RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
+    gd
+
+RUN pecl install \
+	xdebug \
+	igbinary
 
 RUN docker-php-ext-install \
     mbstring \
+    intl \
+    gettext \
+    bz2 \
+    zip \
+    soap \
+    exif \
     pdo \
     pdo_mysql \
     mysqli \
     opcache;
 
-# UNABLE INSTALL XDEBUG!!!
-#RUN docker-php-ext-install \
-#    mbstring \
-#    pdo \
-#    pdo_mysql \
-#    mysqli \
-#    opcache \
-#    && pecl install xdebug \
-#    && docker-php-ext-enable xdebug;
+RUN docker-php-ext-enable \
+	xdebug \
+	igbinary \
+	exif
+
+RUN set -ex \
+    && apk add --no-cache --virtual .phpize-deps ${PHPIZE_DEPS} imagemagick imagemagick-dev libtool \
+    && export CFLAGS="${PHP_CFLAGS}" CPPFLAGS="${PHP_CPPFLAGS}" LDFLAGS="${PHP_LDFLAGS}" \
+    && pecl install imagick-3.4.4 \
+    && docker-php-ext-enable imagick \
+    && apk add --no-cache --virtual .imagick-runtime-deps imagemagick \
+    && apk del .phpize-deps
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 # RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
 
 USER "${USER_ID}:${GROUP_ID}"
 
+COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY .bashrc /root/.bashrc
 

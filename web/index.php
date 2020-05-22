@@ -22,6 +22,12 @@ if (class_exists('\mysqli')) {
     $dbError = 'Class "\mysqli" not found!';
 }
 
+$extLinks = [
+    'gettext' => 'https://www.php.net/manual/en/function.gettext.php',
+    'igbinary' => 'https://github.com/igbinary/igbinary',
+    'xdebug' => 'https://xdebug.org/docs/',
+    'zend opcache' => 'https://www.php.net/manual/en/book.opcache.php',
+];
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,8 +37,8 @@ if (class_exists('\mysqli')) {
         <style>
             body {
                 font-family: arial, helvetica, sans-serif;
-                font-size: 18px;
-                line-height: 1.3;
+                font-size: 16px;
+                line-height: 1.7;
             }
             a {
                 transition-duration: .3s;
@@ -40,6 +46,22 @@ if (class_exists('\mysqli')) {
             }
             a:hover {
                 color: #0056b3;
+            }
+            a.button {
+                display: inline-block;
+                padding: 1px 15px;
+                color: #fff;
+                background-color: #007bff;
+                border: 1px solid #007bff;
+                border-radius: 4px;
+                text-decoration: none;
+            }
+            a.button:hover {
+                border-color: #0069d9;
+                background-color: #0069d9;
+            }
+            ol a, ul a {
+                text-decoration: none;
             }
             table {
                 border-collapse: collapse;
@@ -55,6 +77,9 @@ if (class_exists('\mysqli')) {
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 background-color: #f5f5f5;
+            }
+            .with-columns {
+                columns: 200px auto;
             }
             .error {
                 padding: 15px;
@@ -79,18 +104,26 @@ if (class_exists('\mysqli')) {
         </style>
     </head>
     <body>
-        <h1>Whoa!!!</h1>
+        <h1>Docker for PHP</h1>
         <section>
             <p>
-                PHP-FPM<?php if (extension_loaded('Zend OPcache')) : ?> <i>(with opcache)</i><?php else : ?> <i>(without opcache)</i><?php endif ?>,
+                PHP-FPM
+                    <i>
+                        (with<?php if (! extension_loaded('Zend OPcache')) : ?>out<?php endif ?> opcache,
+                        with<?php if (! extension_loaded('xdebug')) : ?>out<?php endif ?> xdebug),
+                    </i>
                 <?= preg_match('/(mariadb|mysql)/i', $dbVersion, $m) ? $m[1] : '&lt;UNKNOWN_DB&gt;' ?>,
                 Apache
                 - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.
             </p>
+            <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
             <table>
                 <tr>
                     <td>PHP</td>
-                    <td><?= PHP_VERSION ?></td>
+                    <td>
+                        <?= PHP_VERSION ?>
+                        <a href="pi.php" class="button" style="float:right">PHP Info</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Database</td>
@@ -102,9 +135,6 @@ if (class_exists('\mysqli')) {
                 </tr>
             </table>
             <p>Web root directory in the container: <?= __DIR__ ?></p>
-            <p><a href="pi.php">PHP Info</a></p>
-            <p>Coolest solution ever! :)</p>
-            <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
         </section>
 
         <section>
@@ -117,11 +147,10 @@ if (class_exists('\mysqli')) {
         <?php if (! empty($dbError)) : ?>
         <div class="error"><?= $dbError ?></div>
         <?php endif ?>
-        
+
         <section>
             <h2>Information</h2>
             <ul>
-                <li>Environment configured according to article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/" target="_blank">DAMP – Docker, Apache, MariaDB & PHP-FPM</a>.</li>
                 <li><a href="https://linoxide.com/linux-how-to/ssh-docker-container/" target="_blank">Using docker exec command</a></li>
                 <li><strong><a href="https://docs.docker.com/">Docker</a></strong>:
                     <ul>
@@ -133,8 +162,29 @@ if (class_exists('\mysqli')) {
             </ul>
         </section>
 
+        <section>
+            <h2>Available PHP extensions</h2>
+            <ol class="with-columns">
+                <?php
+                $extensions = get_loaded_extensions();
+                array_walk($extensions, static function(&$val){
+                    $val = strtolower($val);
+                });
+                sort($extensions);
+                foreach ($extensions as $ext) : ?>
+                    <li>
+                        <?php if (array_key_exists($ext, $extLinks)) : ?>
+                            <a href="<?= $extLinks[$ext] ?>"><?= $ext ?></a>
+                        <?php else : ?>
+                            <?= $ext ?>
+                        <?php endif ?>
+                    </li>
+                <?php endforeach ?>
+            </ol>
+        </section>
+
         <hr />
-        
+
         <section>
             <ul class="copyright">
                 <li>&copy; 2019 Nimpen J. Nordström</li>

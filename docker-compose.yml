@@ -4,7 +4,7 @@ services:
 
   php:
     container_name: "${CONTAINER_NAME_PHP}"
-    build: 
+    build:
       context: "${PROJECT_DIR}/docker/php/"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
@@ -16,8 +16,10 @@ services:
       - frontend
       - backend
     volumes:
-      - ${WEB_ROOT_DIR}:/var/www/html/
-      - ${WEB_LOGS_DIR}:/var/log/apache2/
+      - ${WEB_ROOT_DIR}/:/var/www/html/
+      - ${WEB_LOGS_DIR}/:/var/log/apache2/
+    environment:
+      XDEBUG_CONFIG: "remote_host=${DOCKER_XDEBUG_REMOTE_HOST} remote_enable=1 remote_handler=dbgp remote_cookie_expire_time=21600"
 
   apache:
     container_name: "${CONTAINER_NAME_APACHE}"
@@ -36,13 +38,17 @@ services:
     ports:
       - "${CONTAINER_PORT_APACHE}:80"
     volumes:
-      - ${WEB_ROOT_DIR}:/var/www/html/
-      - ${WEB_LOGS_DIR}:/var/log/apache2/
+      - ${WEB_ROOT_DIR}/:/var/www/html/
+      - ${WEB_LOGS_DIR}/:/var/log/apache2/
 
   database:
     container_name: "${CONTAINER_NAME_DATABASE}"
     image: ${DOCKER_DATABASE_ENGINE}:${DOCKER_DATABASE_VERSION:-latest}
-    command: --default-authentication-plugin=mysql_native_password
+    command:
+      - --default-authentication-plugin=mysql_native_password
+#      - --init-connect='SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
     restart: always
     ports:
       - "${CONTAINER_PORT_DATABASE}:3306"

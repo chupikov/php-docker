@@ -24,5 +24,8 @@ LoadModule proxy_fcgi_module /usr/local/apache2/modules/mod_proxy_fcgi.so
 	CustomLog /var/log/apache2/custom.log common
 	ErrorLog /var/log/apache2/error.log
 
+    # Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
+    LogLevel warn
+
 </VirtualHost>
 
