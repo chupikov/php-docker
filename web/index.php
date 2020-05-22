@@ -1,6 +1,8 @@
 <?php
 
 $dbVersion = null;
+$dbVersionComment = null;
+$dbVersionId = null;
 $dbInnodbVersion = null;
 $dbProtocolVersion = null;
 $dbError = null;
@@ -12,11 +14,21 @@ if (class_exists('\mysqli')) {
     while ($row = $result->fetch_array(MYSQLI_NUM)) {
         if ($row[0] === 'version') {
             $dbVersion = $row[1];
+        } elseif ($row[0] === 'version_comment') {
+            $dbVersionComment = $row[1];
         } elseif ($row[0] === 'innodb_version') {
             $dbInnodbVersion = $row[1];
         } elseif ($row[0] === 'protocol_version') {
             $dbProtocolVersion = $row[1];
         }
+    }
+
+    if (preg_match('/(mariadb|mysql)/i', $dbVersion, $m)) {
+        $dbVersionId = $m[1];
+    } elseif (preg_match('/(mariadb|mysql)/i', $dbVersionComment, $m)) {
+        $dbVersionId = $m[1];
+    } else {
+        $dbVersionId = '&lt;UNKNOWN_DB&gt;';
     }
 } else {
     $dbError = 'Class "\mysqli" not found!';
@@ -112,7 +124,7 @@ $extLinks = [
                         (with<?php if (! extension_loaded('Zend OPcache')) : ?>out<?php endif ?> opcache,
                         with<?php if (! extension_loaded('xdebug')) : ?>out<?php endif ?> xdebug),
                     </i>
-                <?= preg_match('/(mariadb|mysql)/i', $dbVersion, $m) ? $m[1] : '&lt;UNKNOWN_DB&gt;' ?>,
+                <?= $dbVersionId ?>,
                 Apache
                 - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.
             </p>
@@ -127,7 +139,10 @@ $extLinks = [
                 </tr>
                 <tr>
                     <td>Database</td>
-                    <td><?= ($dbVersion ? $dbVersion : '&lt;UNKNOWN&gt;') ?></td>
+                    <td>
+                        <?= ($dbVersion ? $dbVersion : '&lt;UNKNOWN&gt;') ?>
+                        <?= ($dbVersionComment ? " - <i>$dbVersionComment</i>" : '') ?>
+                    </td>
                 </tr>
                 <tr>
                     <td>Apache</td>

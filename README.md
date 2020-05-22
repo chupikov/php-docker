@@ -10,6 +10,8 @@ FEATURES
 * [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
     * opcache
     * xdebug
+    * ffmpeg
+    * pngout
     * PHP extensions (see below)
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4

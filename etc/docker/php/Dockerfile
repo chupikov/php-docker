@@ -37,6 +37,7 @@ RUN apk add --update --no-cache \
     mc \
     curl \
     unzip \
+    ffmpeg \
     wget;
 
 RUN docker-php-ext-configure gd \
