@@ -15,36 +15,6 @@ FEATURES
 * Web server: Apache 2.4
 
 
-KNOWN ISSUES
-============
-
-MariaDB does not start on Windows hosts
----------------------------------------
-
-MariaDB container doesn't start on Windows hosts with shared databases volume.
-
-Get error _"Installation of system tables failed"_.
-
-Because of this default database server changed
-from _[MariaDB 10.3](https://hub.docker.com/_/mariadb)_
-to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
-
-Missing Alpine Linux packages
------------------------------
-
-Sometimes when install PHP extension some Alpine Linux dependencies missing.
-
-Please check [List of Alpine Linux packages](https://pkgs.alpinelinux.org/packages?branch=edge&arch=x86_64).
-
-
-INSTALL
-=======
-
-After clone/copy source files:
-
-1. Run `bin/init.sh` - script creates requiredfiles and  directories.
-2. Configure `.env`.
-
 DIRECTORY STRUCTURE
 ===================
 
@@ -59,20 +29,33 @@ All directories are required.
         * data-(mysql|mariadb)
     * php
 
-NOTES
-=====
 
-Common notes
-------------
+KNOWN ISSUES
+============
 
-* Apache container always has installed PHP version 7.3.
-* Impossible connect MariaDB server externally with root privileges - connect to MariaDB container is required.
+MariaDB does not start on Windows hosts
+---------------------------------------
 
-Windows OS notes
-----------------
+MariaDB container doesn't start on Windows hosts with shared databases volume.
 
-* Shell scripts could be executed in MinGW (e.g. GIT Bash) console.
-* Impossible connect container using `docker exec` command because TTY not supported. But this command perfectly working in PowerShell console.
+Get error _"Installation of system tables failed"_.
+
+Because of this default database server changed
+from _[MariaDB 10.3](https://hub.docker.com/_/mariadb)_
+to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
+
+
+
+INSTALL
+=======
+
+After clone/copy source files:
+
+1. Copy `.env.sample` to `.env`.
+2. Configure `.env`.
+3. Run `bin/init.sh` - script creates required files and  directories.
+4. Configure PHP `etc/docker/php/php.ini`.
+5. Configure Apache `etc/docker/apache/apache.conf`.
 
 
 CONFIGURATION
@@ -102,6 +85,7 @@ Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
 For Linux hosts value could be **172.17.0.1**.
 
 For Windows hosts value should be **host.docker.internal**.
+
 
 USAGE
 =====
@@ -172,11 +156,19 @@ $mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');
 ```
 
 
+Information
+===========
+
+* [List of Alpine Linux packages](https://pkgs.alpinelinux.org/packages?branch=edge&arch=x86_64).
+* [Extensions available for "docker-php-ext-install"](etc/available-extensions.md).
+
 PHP Extensions
 ==============
 
 Installed PHP extensions
 ------------------------
+
+See also [Extensions available for "docker-php-ext-install"](etc/available-extensions.md).
 
 1. bz2
 1. cgi-fcgi
@@ -225,75 +217,6 @@ Installed PHP extensions
 1. zend opcache
 1. zip
 1. zlib
-
-Extensions available for "docker-php-ext-install"
-----------------------------------------------------
-
-* bcmath
-* bz2
-* calendar
-* ctype
-* curl
-* dba
-* dom
-* enchant
-* exif
-* fileinfo
-* filter
-* ftp
-* gd
-* gettext
-* gmp
-* hash
-* iconv
-* imap
-* interbase
-* intl
-* json
-* ldap
-* mbstring
-* mysqli
-* oci8
-* odbc
-* opcache
-* pcntl
-* pdo
-* pdo_dblib
-* pdo_firebird
-* pdo_mysql
-* pdo_oci
-* pdo_odbc
-* pdo_pgsql
-* pdo_sqlite
-* pgsql
-* phar
-* posix
-* pspell
-* readline
-* recode
-* reflection
-* session
-* shmop
-* simplexml
-* snmp
-* soap
-* sockets
-* sodium
-* spl
-* standard
-* sysvmsg
-* sysvsem
-* sysvshm
-* tidy
-* tokenizer
-* wddx
-* xml
-* xmlreader
-* xmlrpc
-* xmlwriter
-* xsl
-* zend_test
-* zip
 
 
 COPYRIGHT
