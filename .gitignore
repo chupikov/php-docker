@@ -7,3 +7,6 @@
 /etc/docker/database/data/*
 !/etc/docker/database/data-*
 /etc/docker/database/data-*/*
+
+/etc/docker/php/php.ini
+/etc/docker/apache/apache.conf

@@ -33,8 +33,8 @@ directories=(
 
 roots=(
   "${ROOT_DIR}/${WEB_ROOT_DIR}"
-  "${ROOT_DIR}/${PROJECT_DIR}/apache"
-  "${ROOT_DIR}/${PROJECT_DIR}/php"
+  "${ROOT_DIR}/${PROJECT_DIR}/docker/apache"
+  "${ROOT_DIR}/${PROJECT_DIR}/docker/php"
 )
 
 
@@ -73,7 +73,7 @@ echo
 for dir in "${roots[@]}"; do
   echo "Search samples in the directory: ${dir}"
 
-  command eval 'samples=($(find ${WEB_ROOT_DIR} -type f -name "*.sample"))'
+  command eval 'samples=($(find ${dir} -type f -name "*.sample"))'
 
   for sample in "${samples[@]}"; do
 
@@ -83,10 +83,10 @@ for dir in "${roots[@]}"; do
 
     if [ ! -f "$file" ]
     then
-      echo "Copy ${sample} --> ${file}"
+      echo "  Copy ${sample} --> ${file}"
       cp "${sample}" "${file}"
     else
-      echo "File exists: ${file}"
+      echo "  File already exists: ${file}"
     fi
   done
 done
