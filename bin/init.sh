@@ -2,56 +2,91 @@
 # Creates required directories if not exist
 
 
-PROJ_DIR="etc"
 SELF_DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 ROOT_DIR="$(dirname ${SELF_DIR})"
-LOGS_DIR="${ROOT_DIR}/logs"
-DATA_DIR="${ROOT_DIR}/${PROJ_DIR}/docker/database"
-MYSQL_DIR="${DATA_DIR}/data-mysql"
-MARIA_DIR="${DATA_DIR}/data-mariadb"
 ENV_FILE="${ROOT_DIR}/.env"
+
+if [ ! -f "${ENV_FILE}" ]; then
+  echo -e "\033[31;1;7m'.env' file not found!\033[0m"
+  echo "First copy '.env.sample' to '.env' and fill with required values."
+  echo
+  exit 1
+fi
+
+
+source "${ENV_FILE}"
+
+DATA_DIR="${ROOT_DIR}/${PROJECT_DIR}/docker/database"
+
+
+# Directories to create
+
+directories=(
+  "${ROOT_DIR}/logs"
+  "${DATA_DIR}"
+  "${DATA_DIR}/data-mysql"
+  "${DATA_DIR}/data-mariadb"
+)
+
+
+# Root directories where need to create files from samples
+
+roots=(
+  "${ROOT_DIR}/${WEB_ROOT_DIR}"
+  "${ROOT_DIR}/${PROJECT_DIR}/apache"
+  "${ROOT_DIR}/${PROJECT_DIR}/php"
+)
+
+
+
+sys=$(uname)
+
+if [[ $sys =~ [Ll]inux ]] || [[ $sys =~ [Dd]arwin ]]; then
+  IS_NIX=true
+else
+  IS_NIX=false
+fi
+
 
 echo "User directory: `pwd`"
 echo "Self directory: ${SELF_DIR}"
 echo "Root directory: ${ROOT_DIR}"
+echo
 
-if [ ! -f "${ENV_FILE}" ]
-then
-    echo "Create ${ENV_FILE}..."
-    cp "${ENV_FILE}.sample" "${ENV_FILE}"
-else
-    echo "File exists: $ENV_FILE..."
-fi
 
-if [ ! -d $LOGS_DIR ]
-then
-    echo "Create $LOGS_DIR..."
-    mkdir $LOGS_DIR
-else
-    echo "Directory exists: $LOGS_DIR..."
-fi
+for dir in "${directories[@]}"; do
+  if [ ! -d "${dir}" ]; then
+    echo "Create directory: '${dir}'..."
+    mkdir "${dir}"
+  else
+    echo "Directory already exists: '${dir}'"
+  fi
+  if [ $IS_NIX = true ]; then
+    sudo chown -R :www-data "${dir}"
+    sudo find "${dir}" -type f -exec chmod 664 {} \;
+    sudo find "${dir}" -type d -exec chmod 775 {} \;
+  fi
+done
+echo
 
-if [ ! -d $DATA_DIR ]
-then
-    echo "Create $DATA_DIR..."
-    mkdir $DATA_DIR
-else
-    echo "Directory exists: $DATA_DIR..."
-fi
 
-if [ ! -d $MYSQL_DIR ]
-then
-    echo "Create $MYSQL_DIR..."
-    mkdir $MYSQL_DIR
-else
-    echo "Directory exists: $MYSQL_DIR..."
-fi
+for dir in "${roots[@]}"; do
+  echo "Search samples in the directory: ${dir}"
 
-if [ ! -d $MARIA_DIR ]
-then
-    echo "Create $MARIA_DIR..."
-    mkdir $MARIA_DIR
-else
-    echo "Directory exists: $MARIA_DIR..."
-fi
+  command eval 'samples=($(find ${WEB_ROOT_DIR} -type f -name "*.sample"))'
 
+  for sample in "${samples[@]}"; do
+
+    [[ ${sample} =~ \.env\.sample ]] && continue
+
+    file=`echo ${sample} | sed -e "s/\.sample$//"`
+
+    if [ ! -f "$file" ]
+    then
+      echo "Copy ${sample} --> ${file}"
+      cp "${sample}" "${file}"
+    else
+      echo "File exists: ${file}"
+    fi
+  done
+done

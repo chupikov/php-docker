@@ -16,8 +16,8 @@ services:
       - frontend
       - backend
     volumes:
-      - ${WEB_ROOT_DIR}:/var/www/html/
-      - ${WEB_LOGS_DIR}:/var/log/apache2/
+      - ${WEB_ROOT_DIR}/:/var/www/html/
+      - ${WEB_LOGS_DIR}/:/var/log/apache2/
     environment:
       XDEBUG_CONFIG: "remote_host=${DOCKER_XDEBUG_REMOTE_HOST} remote_enable=1 remote_handler=dbgp remote_cookie_expire_time=21600"
 
@@ -38,8 +38,8 @@ services:
     ports:
       - "${CONTAINER_PORT_APACHE}:80"
     volumes:
-      - ${WEB_ROOT_DIR}:/var/www/html/
-      - ${WEB_LOGS_DIR}:/var/log/apache2/
+      - ${WEB_ROOT_DIR}/:/var/www/html/
+      - ${WEB_LOGS_DIR}/:/var/log/apache2/
 
   database:
     container_name: "${CONTAINER_NAME_DATABASE}"
