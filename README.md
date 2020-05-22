@@ -16,6 +16,10 @@ FEATURES
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
+Tested with CMS
+---------------
+
+* [Wordpress](https://wordpress.org/) 5.4.1.
 
 DIRECTORY STRUCTURE
 ===================
