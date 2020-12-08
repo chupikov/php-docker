@@ -32,7 +32,7 @@ directories=(
 # Root directories where need to create files from samples
 
 roots=(
-  "${ROOT_DIR}/${WEB_ROOT_DIR}"
+  "${ROOT_DIR}/${SRC_ROOT_DIR}"
   "${ROOT_DIR}/${PROJECT_DIR}/docker/apache"
   "${ROOT_DIR}/${PROJECT_DIR}/docker/php"
 )

@@ -16,6 +16,10 @@ FEATURES
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
+Tested with PHP frameworks and CMS
+----------------------------------
+
+* [Wordpress](https://wordpress.org/) 5.4.1.
 
 DIRECTORY STRUCTURE
 ===================
@@ -23,7 +27,8 @@ DIRECTORY STRUCTURE
 All directories are required.
 
 * bin
-* web
+* src
+    * web
 * logs
 * etc/docker
     * apache 
@@ -87,6 +92,51 @@ Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
 For Linux hosts value could be **172.17.0.1**.
 
 For Windows hosts value should be **host.docker.internal**.
+
+Web root directory
+------------------
+
+By default `./src` is a _project root directory_
+and `./src/web` is a _web root directory_.
+
+In some cases (for example because of used PHP framework requirements)
+_web root directory_ need to be changed.
+
+### Rename web root directory
+
+For example rename `./src/web` to `./src/public`.
+
+1. Rename directory `./src/web` to `./src/public`.
+2. Edit `etc/docker/apache/apache.conf` file, update `/var/www/html/web` to `/var/www/html/public`, for example:
+```
+	ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/var/www/html/public/$1
+
+	DocumentRoot /var/www/html/public
+
+	<Directory /var/www/html/public/>
+		DirectoryIndex index.php
+		Options Indexes FollowSymLinks
+		AllowOverride All
+		Require all granted
+	</Directory>
+```
+
+### Make root web directory equals to `src` directory
+
+1. Directory `./src/web` isn't required anymore, you can delete it.
+2. Edit `etc/docker/apache/apache.conf` file, update `/var/www/html/web` to `/var/www/html`, for example:
+```
+	ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/var/www/html/$1
+
+	DocumentRoot /var/www/html
+
+	<Directory /var/www/html/>
+		DirectoryIndex index.php
+		Options Indexes FollowSymLinks
+		AllowOverride All
+		Require all granted
+	</Directory>
+```
 
 
 USAGE
