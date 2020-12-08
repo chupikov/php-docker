@@ -7,6 +7,9 @@ $dbInnodbVersion = null;
 $dbProtocolVersion = null;
 $dbError = null;
 
+$yearMin = 2020;
+$yearCur = (int) date('Y');
+
 if (class_exists('\mysqli')) {
     $mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');
     $result = $mysqli->query('SHOW VARIABLES LIKE "%version%"');
@@ -203,7 +206,7 @@ $extLinks = [
         <section>
             <ul class="copyright">
                 <li>&copy; 2019 Nimpen J. Nordström</li>
-                <li>&copy; 2020 Yaroslav Chupikov</li>
+                <li>&copy; <?= $yearMin . ($yearCur > $yearMin ? "-{$yearCur}" : '') ?> Yaroslav Chupikov</li>
             </ul>
         </section>
     </body>
