@@ -1,5 +1,5 @@
 ARG PHP_VERSION=""
-ARG USER_ID=""
+ARG CONTAINER_USER_ID=""
 ARG GROUP_ID=""
 
 FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
@@ -86,12 +86,15 @@ ENV LC_ALL C.UTF-8
 
 WORKDIR /var/www/html
 
-# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
+# RUN usermod -u ${CONTAINER_USER_ID} www-data && groupmod -g ${CONTAINER_GROUP_ID} www-data
 
-USER "${USER_ID}:${GROUP_ID}"
+USER "${CONTAINER_USER_ID}:${CONTAINER_GROUP_ID}"
 
 COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY .bashrc /root/.bashrc
 COPY install.sh /root/install.sh
+
+RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
+SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 
 RUN /root/install.sh
