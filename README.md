@@ -2,6 +2,8 @@ Universal Docker solution for PHP
 =================================
 
 * Environment configured according to this article: https://�.se/damp-docker-apache-mariadb-php-fpm/
+* Using [mlocati/docker-php-extension-installer](https://github.com/mlocati/docker-php-extension-installer)
+  by Michele Locati for install PHP extensions. 
 * Using docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
 
 FEATURES
@@ -213,6 +215,7 @@ Information
 
 * [List of Alpine Linux packages](https://pkgs.alpinelinux.org/packages?branch=edge&arch=x86_64).
 * [Extensions available for "docker-php-ext-install"](etc/available-extensions.md).
+* [Extensions available for "mlocati/docker-php-extension-installer"](https://github.com/mlocati/docker-php-extension-installer).
 
 PHP Extensions
 ==============
@@ -220,7 +223,7 @@ PHP Extensions
 Installed PHP extensions
 ------------------------
 
-See also [Extensions available for "docker-php-ext-install"](etc/available-extensions.md).
+See also [Extensions available for "docker-php-ext-install"](etc/available-extensions.md) and [Extensions available for "mlocati/docker-php-extension-installer"](https://github.com/mlocati/docker-php-extension-installer).
 
 1. bz2
 1. cgi-fcgi
@@ -266,6 +269,7 @@ See also [Extensions available for "docker-php-ext-install"](etc/available-exten
 1. xml
 1. xmlreader
 1. xmlwriter
+1. yaml
 1. zend opcache
 1. zip
 1. zlib
@@ -274,6 +278,5 @@ See also [Extensions available for "docker-php-ext-install"](etc/available-exten
 COPYRIGHT
 =========
 
-* (C) 2019 Nimpen J. Nordstr�m
-* (C) 2019 Yaroslav Chupikov
-
+* (c) 2019 Nimpen J. Nordstr�m
+* (c) 2019-2021 Yaroslav Chupikov
