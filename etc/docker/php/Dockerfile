@@ -8,57 +8,22 @@ RUN apk update; \
     apk upgrade;
 
 RUN apk add --update --no-cache \
-    libintl \
-    icu \
-    icu-dev \
-    gettext \
-    gettext-dev \
-    libxml2-dev \
-	libzip-dev \
-    libbz2 \
-    bzip2-dev \
-    freetype \
-	libmcrypt-dev \
-	libpng \
-	libjpeg-turbo \
-	libjpeg-turbo-dev \
-	freetype-dev \
-	libpng-dev \
-    shadow \
-    libwebp \
-    libwebp-dev \
-    dpkg-dev \
-    dpkg \
-    gcc \
-    g++ \
-    autoconf \
-    file \
-	cmake \
-	make \
     bash \
+    unzip \
     mc \
     curl \
-    unzip \
-    ffmpeg \
     wget;
 
-RUN docker-php-ext-configure gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-png-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/ \
-    --with-webp-dir=/usr/include/
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
-    gd
-
-RUN pecl install \
-	xdebug \
-	igbinary
-
-RUN docker-php-ext-install \
+RUN chmod +x /usr/local/bin/install-php-extensions && sync
+RUN install-php-extensions \
+    gd \
+    imagick \
     mbstring \
     intl \
     gettext \
+    igbinary \
     bz2 \
     zip \
     soap \
@@ -66,20 +31,9 @@ RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
     mysqli \
+    yaml \
+    xdebug \
     opcache;
-
-RUN docker-php-ext-enable \
-	xdebug \
-	igbinary \
-	exif
-
-RUN set -ex \
-    && apk add --no-cache --virtual .phpize-deps ${PHPIZE_DEPS} imagemagick imagemagick-dev libtool \
-    && export CFLAGS="${PHP_CFLAGS}" CPPFLAGS="${PHP_CPPFLAGS}" LDFLAGS="${PHP_LDFLAGS}" \
-    && pecl install imagick-3.4.4 \
-    && docker-php-ext-enable imagick \
-    && apk add --no-cache --virtual .imagick-runtime-deps imagemagick \
-    && apk del .phpize-deps
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
@@ -93,5 +47,8 @@ USER "${USER_ID}:${GROUP_ID}"
 COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY .bashrc /root/.bashrc
 COPY install.sh /root/install.sh
+
+RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
+SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 
 RUN /root/install.sh
