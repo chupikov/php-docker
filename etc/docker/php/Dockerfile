@@ -9,21 +9,21 @@ RUN apk update; \
 
 RUN apk add --update --no-cache \
     bash \
+    unzip \
     mc \
     curl \
-    unzip \
     wget;
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install-php-extensions && sync
 RUN install-php-extensions \
-	gd \
-	imagick \
+    gd \
+    imagick \
     mbstring \
     intl \
     gettext \
-	igbinary \
+    igbinary \
     bz2 \
     zip \
     soap \
@@ -31,8 +31,8 @@ RUN install-php-extensions \
     pdo \
     pdo_mysql \
     mysqli \
-	yaml \
-	xdebug \
+    yaml \
+    xdebug \
     opcache;
 
 ENV LANG C.UTF-8
