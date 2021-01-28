@@ -9,7 +9,8 @@ Universal Docker solution for PHP
 FEATURES
 ========
 
-* [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
+* [PHP/FCGID](https://hub.docker.com/_/php) - any modern version based on [Alpine linux](https://alpinelinux.org/).
+  Tested with PHP versions 7.2, 7.3, 7.4, 8.0. 
     * opcache
     * xdebug
     * ffmpeg
@@ -98,7 +99,7 @@ For Windows hosts value should be **host.docker.internal**.
 Web root directory
 ------------------
 
-By default `./src` is a _project root directory_
+By default `./src` is a _PHP project root directory_
 and `./src/web` is a _web root directory_.
 
 In some cases (for example because of used PHP framework requirements)

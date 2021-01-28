@@ -1,3 +1,9 @@
+Extensions available for "mlocati/docker-php-extension-installer"
+=================================================================
+
+[Extensions available for "mlocati/docker-php-extension-installer"](https://github.com/mlocati/docker-php-extension-installer)
+depends to PHP version.
+
 Extensions available for "docker-php-ext-install"
 =================================================
 
