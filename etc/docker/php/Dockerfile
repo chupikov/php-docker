@@ -38,12 +38,6 @@ RUN install-php-extensions \
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-WORKDIR /var/www/html
-
-# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
-
-USER "${USER_ID}:${GROUP_ID}"
-
 COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY .bashrc /root/.bashrc
 COPY install.sh /root/install.sh
@@ -52,3 +46,12 @@ RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
 SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 
 RUN /root/install.sh
+
+WORKDIR /var/www/html
+
+# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
+
+# USER "${USER_ID}:${GROUP_ID}"
+# USER www-data:www-data
+
+# COPY .bashrc /home/www-data/.bashrc
