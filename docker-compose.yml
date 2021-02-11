@@ -8,8 +8,6 @@ services:
       context: "${PROJECT_DIR}/docker/php/"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
-        USER_ID: ${CONTAINER_USER_ID}
-        GROUP_ID: ${CONTAINER_GROUP_ID}
     depends_on:
       - database
     networks:
@@ -27,8 +25,6 @@ services:
       context: ${PROJECT_DIR}/docker/apache/
       args:
         APACHE_VERSION: ${DOCKER_APACHE_VERSION}
-        USER_ID: ${CONTAINER_USER_ID}
-        GROUP_ID: ${CONTAINER_GROUP_ID}
     depends_on:
       - php
       - database

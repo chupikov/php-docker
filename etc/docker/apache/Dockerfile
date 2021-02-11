@@ -1,6 +1,4 @@
 ARG APACHE_VERSION=""
-ARG USER_ID=""
-ARG GROUP_ID=""
 
 FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
 
@@ -56,9 +54,8 @@ RUN apk add \
 
 RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /usr/local/apache2/conf/httpd.conf;
 
-# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
-
-USER "${USER_ID}:${GROUP_ID}"
+RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
+SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 
 COPY .bashrc /root/.bashrc
 

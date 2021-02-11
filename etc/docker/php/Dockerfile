@@ -1,6 +1,4 @@
 ARG PHP_VERSION=""
-ARG USER_ID=""
-ARG GROUP_ID=""
 
 FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
 
@@ -49,9 +47,8 @@ RUN /root/install.sh
 
 WORKDIR /var/www/html
 
-# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
 
-# USER "${USER_ID}:${GROUP_ID}"
-# USER www-data:www-data
-
-# COPY .bashrc /home/www-data/.bashrc
+# RUN addgroup -g 1000 user
+# RUN adduser -u 1000 -G user -h /home/user -s /bin/bash -D user
+# COPY .bashrc "/home/user/.bashrc"
+# USER user:www-data
