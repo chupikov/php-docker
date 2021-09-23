@@ -33,6 +33,9 @@ RUN install-php-extensions \
     xdebug \
     opcache;
 
+RUN echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
