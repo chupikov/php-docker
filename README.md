@@ -6,12 +6,21 @@ Universal Docker solution for PHP
   by Michele Locati for install PHP extensions. 
 * Using docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
 
+CHANGELOG
+---------
+
+### Version 0.5
+
+* Added support for [Xdebug 3](https://xdebug.org/docs/).
+
+
 FEATURES
 ========
 
-* [PHP/FCGID](https://hub.docker.com/_/php) - any modern version
+* [PHP/FCGID](https://hub.docker.com/_/php) - any modern version based on [Alpine linux](https://alpinelinux.org/).
+  Tested with PHP versions 7.2, 7.3, 7.4, 8.0. 
     * opcache
-    * xdebug
+    * xdebug [version 3](https://xdebug.org/docs/)
     * ffmpeg
     * pngout
     * PHP extensions (see below)
@@ -89,6 +98,10 @@ Possible values:
 XDEBUG
 ------
 
+Supporting versions:
+* [Xdebug version 3](https://xdebug.org/docs/) by default (see [Upgrading from Xdebug 2 to 3](https://xdebug.org/docs/upgrade_guide)).
+* [Xdebug version 2](https://2.xdebug.org/docs/) (link available Dec 31st, 2021) can be configured.
+
 Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
 
 For Linux hosts value could be **172.17.0.1**.
@@ -98,7 +111,7 @@ For Windows hosts value should be **host.docker.internal**.
 Web root directory
 ------------------
 
-By default `./src` is a _project root directory_
+By default `./src` is a _PHP project root directory_
 and `./src/web` is a _web root directory_.
 
 In some cases (for example because of used PHP framework requirements)

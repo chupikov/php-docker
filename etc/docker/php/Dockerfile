@@ -1,6 +1,4 @@
 ARG PHP_VERSION=""
-ARG USER_ID=""
-ARG GROUP_ID=""
 
 FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
 
@@ -35,14 +33,11 @@ RUN install-php-extensions \
     xdebug \
     opcache;
 
+RUN echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-
-WORKDIR /var/www/html
-
-# RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
-
-USER "${USER_ID}:${GROUP_ID}"
 
 COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY .bashrc /root/.bashrc
@@ -52,3 +47,11 @@ RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
 SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 
 RUN /root/install.sh
+
+WORKDIR /var/www/html
+
+
+# RUN addgroup -g 1000 user
+# RUN adduser -u 1000 -G user -h /home/user -s /bin/bash -D user
+# COPY .bashrc "/home/user/.bashrc"
+# USER user:www-data

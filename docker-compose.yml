@@ -8,8 +8,6 @@ services:
       context: "${PROJECT_DIR}/docker/php/"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
-        USER_ID: ${CONTAINER_USER_ID}
-        GROUP_ID: ${CONTAINER_GROUP_ID}
     depends_on:
       - database
     networks:
@@ -19,7 +17,8 @@ services:
       - ${SRC_ROOT_DIR}/:/var/www/html/
       - ${WEB_LOGS_DIR}/:/var/log/apache2/
     environment:
-      XDEBUG_CONFIG: "remote_host=${DOCKER_XDEBUG_REMOTE_HOST} remote_enable=1 remote_handler=dbgp remote_cookie_expire_time=21600"
+#      XDEBUG_CONFIG: "remote_host=${DOCKER_XDEBUG_REMOTE_HOST} remote_enable=1 remote_handler=dbgp remote_cookie_expire_time=21600"
+      XDEBUG_CONFIG: "client_host=${DOCKER_XDEBUG_REMOTE_HOST}"
 
   apache:
     container_name: "${CONTAINER_NAME_APACHE}"
@@ -27,8 +26,6 @@ services:
       context: ${PROJECT_DIR}/docker/apache/
       args:
         APACHE_VERSION: ${DOCKER_APACHE_VERSION}
-        USER_ID: ${CONTAINER_USER_ID}
-        GROUP_ID: ${CONTAINER_GROUP_ID}
     depends_on:
       - php
       - database
