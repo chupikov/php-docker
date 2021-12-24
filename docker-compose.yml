@@ -35,6 +35,7 @@ services:
     ports:
       - "${CONTAINER_PORT_APACHE}:80"
     volumes:
+      - ${PROJECT_DIR}/docker/apache/sites-enabled/:/usr/local/apache2/conf/sites-enabled/
       - ${SRC_ROOT_DIR}/:/var/www/html/
       - ${WEB_LOGS_DIR}/:/var/log/apache2/
 
