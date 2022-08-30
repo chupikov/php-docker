@@ -65,7 +65,14 @@ to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
 Impossible install from PECL/PEAR
 ---------------------------------
 
+**Problem**: Impossible install `igbinary` extension from PECL. Beacuse of this container build failed.
+
+See also:
+
 * See thread [pecl install redis on php8 fails](https://github.com/docker-library/php/issues/1118) on GitHhub as soon as this looks like similar problem.
+* [Provide static IP to docker containers via docker-compose](https://stackoverflow.com/questions/39493490/provide-static-ip-to-docker-containers-via-docker-compose)
+* [Container networking](https://docs.docker.com/config/containers/container-networking/)
+* [Disable ip v6 in docker container](https://stackoverflow.com/questions/30750271/disable-ip-v6-in-docker-container)
 
 Impossible install `igbinary` extension from PECL because of following error:
 
