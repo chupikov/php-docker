@@ -8,6 +8,7 @@ services:
       context: "${PROJECT_DIR}/docker/php/"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
+        ALPINE_VERSION_PHP: ${ALPINE_VERSION_PHP}
     depends_on:
       - database
     networks:
@@ -26,6 +27,7 @@ services:
       context: ${PROJECT_DIR}/docker/apache/
       args:
         APACHE_VERSION: ${DOCKER_APACHE_VERSION}
+        ALPINE_VERSION_APACHE: ${ALPINE_VERSION_APACHE}
     depends_on:
       - php
       - database
@@ -72,5 +74,6 @@ services:
 
 networks:
   backend:
+    enable_ipv6: false
   frontend:
-
+    enable_ipv6: false

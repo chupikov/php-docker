@@ -1,6 +1,7 @@
 ARG PHP_VERSION=""
+ARG ALPINE_VERSION_PHP=""
 
-FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
+FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine${ALPINE_VERSION_PHP}
 
 RUN apk update; \
     apk upgrade;
@@ -34,7 +35,7 @@ RUN install-php-extensions \
     opcache;
 
 RUN echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
