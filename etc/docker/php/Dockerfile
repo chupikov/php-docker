@@ -18,11 +18,11 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && sync
 RUN install-php-extensions \
     gd \
-    imagick \
+    # imagick \
     mbstring \
     intl \
     gettext \
-    igbinary \
+    # igbinary \
     bz2 \
     zip \
     soap \
@@ -30,9 +30,36 @@ RUN install-php-extensions \
     pdo \
     pdo_mysql \
     mysqli \
-    yaml \
-    xdebug \
-    opcache;
+    # yaml \
+    # xdebug \
+    opcache \
+    ;
+
+
+# imagick
+# Source code: https://github.com/Imagick/imagick/releases/tag/3.7.0
+RUN mkdir -p /usr/src/php/ext/imagick; \
+    curl -fsSL --ipv4 https://github.com/Imagick/imagick/archive/refs/tags/3.7.0.tar.gz | tar xvz -C "/usr/src/php/ext/imagick" --strip 1; \
+    docker-php-ext-install imagick;
+
+# igbinary
+# Source code: https://github.com/igbinary/igbinary/releases/tag/3.2.7
+RUN mkdir -p /usr/src/php/ext/igbinary; \
+    curl -fsSL --ipv4 https://github.com/igbinary/igbinary/archive/refs/tags/3.2.7.tar.gz | tar xvz -C "/usr/src/php/ext/igbinary" --strip 1; \
+    docker-php-ext-install igbinary;
+
+# yaml
+# Source code: https://pecl.php.net/package/yaml
+RUN mkdir -p /usr/src/php/ext/yaml; \
+    curl -fsSL --ipv4 https://pecl.php.net/get/yaml-2.2.2.tgz | tar xvz -C "/usr/src/php/ext/yaml" --strip 1; \
+    docker-php-ext-install yaml;
+
+# xdebug
+# Source code: https://github.com/xdebug/xdebug/releases/tag/3.1.5
+RUN mkdir -p /usr/src/php/ext/xdebug; \
+    curl -fsSL --ipv4 https://github.com/xdebug/xdebug/archive/refs/tags/3.1.5.tar.gz | tar xvz -C "/usr/src/php/ext/xdebug" --strip 1; \
+    docker-php-ext-install xdebug;
+
 
 RUN echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
