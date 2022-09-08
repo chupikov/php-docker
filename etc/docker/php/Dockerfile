@@ -18,11 +18,11 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && sync
 RUN install-php-extensions \
     gd \
-    # imagick \
+    imagick \
     mbstring \
     intl \
     gettext \
-    # igbinary \
+    igbinary \
     bz2 \
     zip \
     soap \
@@ -30,8 +30,8 @@ RUN install-php-extensions \
     pdo \
     pdo_mysql \
     mysqli \
-    # yaml \
-    # xdebug \
+    yaml \
+    xdebug \
     opcache \
     ;
 
