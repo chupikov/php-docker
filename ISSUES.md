@@ -72,7 +72,7 @@ As I understand problem that CURL forced to use IPv6 over IPv4 and if IPv6 not s
 
 However strange that package `igbinary` can't be found even if connect to PECL successfull.
 
-### Update 2022-0907
+### Update 2022-09-07
 
 `commit: e3520c9877177762035d4a276bed9031101e2cab`
 
@@ -82,8 +82,12 @@ Workable version of the setup but without following extensions (see `php/Dockerf
 - yaml
 - xdebug
 
-Imagick can't be installed but regarding other extensions - need to be tested.
+### Update 2022-09-07
 
-Possible workable versions of the Alpine Linux (see `.env`, `.env.sample`):
-+ 3.14 (tested, working)
-+ 3.16 (desired, untested)
+`commit: ee295cac6471dc6c9260ce3c30efcb9bce6ab801`
+
+Created workable configuration (see `.env`, `.env.sample`):
++ ALPINE_VERSION_PHP=3.12
++ ALPINE_VERSION_APACHE=3.14.
+
+All modules downloaded and installed with enabled IPv6.
