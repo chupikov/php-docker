@@ -1,6 +1,7 @@
 ARG APACHE_VERSION=""
+ARG ALPINE_VERSION_APACHE=""
 
-FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
+FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine${ALPINE_VERSION_APACHE}
 
 RUN apk update; \
     apk upgrade;
@@ -60,7 +61,9 @@ SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 COPY .bashrc /root/.bashrc
 
 # Copy apache vhost file to proxy php requests to php-fpm container
-COPY apache.conf /usr/local/apache2/conf/000-apache.conf
-RUN echo "Include /usr/local/apache2/conf/000-apache.conf" \
-    >> /usr/local/apache2/conf/httpd.conf
+# COPY apache.conf /usr/local/apache2/conf/000-apache.conf
+# RUN echo "Include /usr/local/apache2/conf/000-apache.conf" \
+#     >> /usr/local/apache2/conf/httpd.conf
 
+RUN echo "IncludeOptional /usr/local/apache2/conf/sites-enabled/*.conf" \
+    >> /usr/local/apache2/conf/httpd.conf

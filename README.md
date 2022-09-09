@@ -51,18 +51,10 @@ All directories are required.
 KNOWN ISSUES
 ============
 
-MariaDB does not start on Windows hosts
----------------------------------------
+See [ISSUES.md](ISSUES.md):
 
-MariaDB container doesn't start on Windows hosts with shared databases volume.
-
-Get error _"Installation of system tables failed"_.
-
-Because of this default database server changed
-from _[MariaDB 10.3](https://hub.docker.com/_/mariadb)_
-to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
-
-
+- MariaDB does not start on Windows hosts
+- Impossible install from PECL/PEAR
 
 INSTALL
 =======

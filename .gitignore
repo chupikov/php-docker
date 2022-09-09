@@ -9,4 +9,5 @@
 /etc/docker/database/data-*/*
 
 /etc/docker/php/php.ini
-/etc/docker/apache/apache.conf
+!/etc/docker/apache/sites-enabled
+/etc/docker/apache/sites-enabled/*.conf
