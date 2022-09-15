@@ -12,8 +12,8 @@ Because of this default database server changed
 from _[MariaDB 10.3](https://hub.docker.com/_/mariadb)_
 to _[MySQL 5.7](https://hub.docker.com/_/mysql)_.
 
-Impossible install from PECL/PEAR
----------------------------------
+Impossible install PHP extensions from PECL/PEAR
+------------------------------------------------
 
 **Problem**: Impossible install `igbinary` extension from PECL. Beacuse of this container build failed.
 
@@ -91,3 +91,54 @@ Created workable configuration (see `.env`, `.env.sample`):
 + ALPINE_VERSION_APACHE=3.14.
 
 All modules downloaded and installed with enabled IPv6.
+
+Network IPv6 error
+------------------
+
+At some time was impossible start containers because of Docker network error:
+
+```
+ ⠿ Network src_backend
+ Error
+
+failed to create network src_backend: Error response from daemon: could not find an available, non-overlapping IPv6 address pool among the defaults to assign to the network
+```
+
+At the moment reason is unknown.
+
+**Solution**: Disable IPv6 for networks in the `docker-compose.yml`:
+
+```yaml
+networks:
+  backend:
+    enable_ipv6: false
+  frontend:
+    enable_ipv6: false
+```
+
+PHP versions `8.1` and `8.2` can not be compiled
+------------------------------------------------
+
+PHP versions `8.1` and `8.2` can not be compiled with Alpine versions `3.14` and above.
+
+```
+#0 520.3 Installing libavif
+#0 525.3 curl: (6) Could not resolve host: codeload.github.com
+#0 525.4 [/tmp/src/tmp.NjLleA]
+#0 525.4   End-of-central-directory signature not found.  Either this file is not
+#0 525.4   a zipfile, or it constitutes one disk of a multi-part archive.  In the
+#0 525.4   latter case the central directory and zipfile comment will be found on
+#0 525.4   the last disk(s) of this archive.
+#0 525.4 unzip:  cannot find zipfile directory in one of /tmp/src/tmp.NjLleA or
+#0 525.4         /tmp/src/tmp.NjLleA.zip, and cannot find /tmp/src/tmp.NjLleA.ZIP, period.
+#0 525.4 CMake Warning:
+#0 525.4   Ignoring extra path from command line:
+#0 525.4
+#0 525.4    ".."
+#0 525.4
+#0 525.4
+#0 525.4 CMake Error: The source directory "/tmp/src/tmp.GGIpcp" does not appear to contain CMakeLists.txt.
+#0 525.4 Specify --help for usage, or press the help button on the CMake GUI.
+------
+failed to solve: executor failed running [/bin/sh -c install-php-extensions     gd     mbstring     intl     gettext     bz2     zip     soap     exif     pdo     pdo_mysql     mysqli     opcache     ;]: exit code: 1
+```

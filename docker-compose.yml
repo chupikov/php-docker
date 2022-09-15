@@ -74,6 +74,6 @@ services:
 
 networks:
   backend:
-    enable_ipv6: true
+    enable_ipv6: false
   frontend:
-    enable_ipv6: true
+    enable_ipv6: false

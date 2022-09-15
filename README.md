@@ -6,13 +6,52 @@ Universal Docker solution for PHP
   by Michele Locati for install PHP extensions. 
 * Using docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
 
+SUPPORTED PHP VERSIONS
+----------------------
+
+PHP versions listed below was successfully tested.
+
+PHP versions `8.1` and `8.2` can not be compiled.
+
+PHP versions prior `7.2` not supported by Alpine version `3.12`.
+
+- PHP **8.0**; Alpine versions:
+    * PHP-FPM: 3.12
+    * Apache: 3.14
+- PHP **7.4**. Alpine versions:
+    * PHP-FPM: 3.12
+    * Apache: 3.14
+- PHP **7.3**. Alpine versions:
+    * PHP-FPM: 3.12
+    * Apache: 3.14
+- PHP **7.2**. Alpine versions:
+    * PHP-FPM: 3.12
+    * Apache: 3.14
+
+### Limited support for some PHP extensions
+
+PHP extensions CAN NOT be installed with Alpine versions greater than `3.12` and can be supported only with PHP versions `7.2`, `7.3`, `7.4`, `8.0`:
+
+* imagick
+* igbinary
+* yaml
+* xdebug
+
+Problem that *impossible install PHP extensions from PECL/PEAR*. Please refer to [ISSUES.md](ISSUES.md) document.
+
 CHANGELOG
 ---------
+
+### Version 0.6
+
+* Fixed issue with non-working PECL (see [ISSUES.md](ISSUES.md)) by downgrading Alpine version to `3.12`.
+* Introduced new environment variables:
+    * `ALPINE_VERSION_PHP`
+    * `ALPINE_VERSION_APACHE`
 
 ### Version 0.5
 
 * Added support for [Xdebug 3](https://xdebug.org/docs/).
-
 
 FEATURES
 ========
@@ -55,6 +94,7 @@ See [ISSUES.md](ISSUES.md):
 
 - MariaDB does not start on Windows hosts
 - Impossible install from PECL/PEAR
+- Impossible start containers because of Docker network IPv6 error
 
 INSTALL
 =======
