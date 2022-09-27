@@ -10,6 +10,8 @@ RUN apk update; \
 
 RUN apk add --update --no-cache \
     bash \
+    sudo \
+    openssh-client \
     unzip \
     mc \
     curl \

@@ -16,7 +16,7 @@ services:
         ALPINE_VERSION_PHP: ${ALPINE_VERSION_PHP}
     secrets:
       - ssh_key
-    user: "${HOST_UID}:${HOST_GID}"
+    user: "${HOST_UID}:${HOST_GID}" # Disabled because SUDO not yet configured properly
     depends_on:
       - database
     networks:
