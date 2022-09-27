@@ -3,6 +3,8 @@ ARG ALPINE_VERSION_APACHE=""
 
 FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine${ALPINE_VERSION_APACHE}
 
+RUN mkdir -p /root/.ssh && ln -s /run/secrets/ssh_key /root/.ssh/id_rsa
+
 RUN apk update; \
     apk upgrade;
 
