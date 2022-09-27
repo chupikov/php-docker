@@ -324,4 +324,4 @@ COPYRIGHT
 =========
 
 * (c) 2019 Nimpen J. Nordstr�m
-* (c) 2019-2021 Yaroslav Chupikov
+* (c) 2019-2022 Yaroslav Chupikov
