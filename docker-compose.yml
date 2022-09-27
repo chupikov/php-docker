@@ -6,6 +6,7 @@ services:
     container_name: "${CONTAINER_NAME_PHP}"
     build:
       context: "${PROJECT_DIR}/docker/php/"
+      dockerfile: "Dockerfile"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
         ALPINE_VERSION_PHP: ${ALPINE_VERSION_PHP}
@@ -25,6 +26,7 @@ services:
     container_name: "${CONTAINER_NAME_APACHE}"
     build:
       context: ${PROJECT_DIR}/docker/apache/
+      dockerfile: "Dockerfile"
       args:
         APACHE_VERSION: ${DOCKER_APACHE_VERSION}
         ALPINE_VERSION_APACHE: ${ALPINE_VERSION_APACHE}
