@@ -86,4 +86,4 @@ WORKDIR /var/www/html
 # RUN addgroup -g 1000 user
 # RUN adduser -u 1000 -G user -h /home/user -s /bin/bash -D user
 # COPY .bashrc "/home/user/.bashrc"
-# USER user:www-data
+USER ${HOST_UID}:${HOST_GID}
