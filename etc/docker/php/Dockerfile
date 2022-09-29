@@ -3,7 +3,16 @@ ARG ALPINE_VERSION_PHP=""
 
 FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine${ALPINE_VERSION_PHP}
 
+ARG HOST_USER=""
+ARG HOST_UID=1000
+ARG HOST_GID=1000
+
 RUN mkdir -p /root/.ssh && ln -s /run/secrets/ssh_key /root/.ssh/id_rsa
+RUN mkdir -p /home/${HOST_USER}/.ssh \
+    && ln -s /run/secrets/ssh_key /home/${HOST_USER}/.ssh/id_rsa \
+    && chmod 0755 /home/${HOST_USER}/.ssh \
+    # && chmod 0644 /home/${HOST_USER}/.ssh/id_rsa \
+    ;
 
 RUN apk update; \
     apk upgrade;
@@ -15,7 +24,8 @@ RUN apk add --update --no-cache \
     unzip \
     mc \
     curl \
-    wget;
+    wget \
+    ;
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
