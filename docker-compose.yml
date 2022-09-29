@@ -31,7 +31,7 @@ services:
       - /etc/group:/etc/group:ro
       - /etc/passwd:/etc/passwd:ro
       - /etc/shadow:/etc/shadow:ro
-      - /etc/sudoers.d:/etc/sudoers.d:ro
+      # - /etc/sudoers.d:/etc/sudoers.d:ro
       - ~/.gitconfig:/home/${HOST_USER}/.gitconfig:ro
       - ${PROJECT_DIR}/docker/php/.bashrc:/home/${HOST_USER}/.bashrc
     environment:
