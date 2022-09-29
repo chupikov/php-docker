@@ -185,6 +185,29 @@ For example rename `./src/web` to `./src/public`.
 	</Directory>
 ```
 
+System user within Docker container
+-----------------------------------
+
+Docker configured in the way which allows use in the `php` container:
+
+* your system username, UID and GID (as defined in host machine) as files owner;
+* your GIT configuration;
+* your private SSH key.
+
+In purpose of configure this feature need to be defined environment variables in the `.env` file:
+
+* `HOST_USER` - name of your system user.
+* `HOST_UID` - UID of your system user.
+* `HOST_GID` - GID of your system user.
+
+For example:
+
+```.env
+HOST_USER=user
+HOST_UID=1000
+HOST_GID=1000
+```
+**WARNING!** If defined incorrectly then containers might not up.
 
 USAGE
 =====
@@ -324,4 +347,4 @@ COPYRIGHT
 =========
 
 * (c) 2019 Nimpen J. Nordstr�m
-* (c) 2019-2021 Yaroslav Chupikov
+* (c) 2019-2022 Yaroslav Chupikov

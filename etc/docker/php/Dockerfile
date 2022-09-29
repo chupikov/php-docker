@@ -3,15 +3,30 @@ ARG ALPINE_VERSION_PHP=""
 
 FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine${ALPINE_VERSION_PHP}
 
+ARG HOST_USER=default
+ARG HOST_UID=1000
+ARG HOST_GID=1000
+
+ENV USER ${HOST_USER}
+
+RUN mkdir -p /root/.ssh && ln -s /run/secrets/ssh_key /root/.ssh/id_rsa
+RUN mkdir -p /home/${HOST_USER}/.ssh \
+    && ln -s /run/secrets/ssh_key /home/${HOST_USER}/.ssh/id_rsa \
+    && chmod 0755 /home/${HOST_USER}/.ssh \
+    ;
+
 RUN apk update; \
     apk upgrade;
 
 RUN apk add --update --no-cache \
     bash \
+    sudo \
+    openssh-client \
     unzip \
     mc \
     curl \
-    wget;
+    wget \
+    ;
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
@@ -76,10 +91,10 @@ SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 
 RUN /root/install.sh
 
+RUN echo "${HOST_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${HOST_USER} \
+    && chmod 0440 /etc/sudoers.d/${HOST_USER} \
+    ;
+
 WORKDIR /var/www/html
 
-
-# RUN addgroup -g 1000 user
-# RUN adduser -u 1000 -G user -h /home/user -s /bin/bash -D user
-# COPY .bashrc "/home/user/.bashrc"
-# USER user:www-data
+USER ${HOST_UID}:${HOST_GID}

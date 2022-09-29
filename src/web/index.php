@@ -152,7 +152,7 @@ $extLinks = [
                     <td><?= $_SERVER['SERVER_SOFTWARE'] ?></td>
                 </tr>
             </table>
-            <p>Web root directory in the container: <?= __DIR__ ?></p>
+            <p>Web root directory in the container: <code><?= __DIR__ ?></code></p>
         </section>
 
         <section>
