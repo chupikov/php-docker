@@ -6,7 +6,10 @@ restart:
 	./bin/stop.sh
 	./bin/start.sh
 build:
-	docker-compose build
+	./bin/build.sh
+build-up:
+	./bin/build.sh
+	./bin/start.sh
 init:
 	./bin/init.sh
 connect-php:
