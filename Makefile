@@ -12,9 +12,15 @@ build-up:
 	./bin/start.sh
 init:
 	./bin/init.sh
-connect-php:
-	./bin/connect-php.sh
-connect-mysql:
-	./bin/connect-mysql.sh
-connect-apache:
-	./bin/connect-apache.sh
+php-connect:
+	./bin/php-connect.sh
+mysql-connect:
+	./bin/mysql-connect.sh
+apache-connect:
+	./bin/apache-connect.sh
+apache-start:
+	./bin/apache.sh start
+apache-restart:
+	./bin/apache.sh restart
+apache-stop:
+	./bin/apache.sh stop
