@@ -10,7 +10,8 @@ services:
     container_name: "${CONTAINER_NAME_PHP}"
     build:
       context: "${PROJECT_DIR}/docker/php/"
-      dockerfile: "alpine.Dockerfile"
+      # dockerfile: "alpine.Dockerfile"
+      dockerfile: "bookworm.Dockerfile"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
         ALPINE_VERSION_PHP: ${ALPINE_VERSION_PHP}
