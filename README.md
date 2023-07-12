@@ -6,27 +6,34 @@ Universal Docker solution for PHP
   by Michele Locati for install PHP extensions. 
 * Using docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
 
+
 SUPPORTED PHP VERSIONS
 ----------------------
 
 PHP versions listed below was successfully tested.
 
-PHP versions `8.1` and `8.2` can not be compiled.
+### PHP under Debian Bookworm Linux
+
+Debian 12 Bookworm supports only PHP versions:
+
+- **8.2**
+- **8.1**
+
+It is recommended to use Apache based on Alpine version `3.14`.
+
+### PHP under Alpine Linux
+
+- **8.0**
+- **7.4**
+- **7.3**
+- **7.2**
 
 PHP versions prior `7.2` not supported by Alpine version `3.12`.
 
-- PHP **8.0**; Alpine versions:
-    * PHP-FPM: 3.12
-    * Apache: 3.14
-- PHP **7.4**. Alpine versions:
-    * PHP-FPM: 3.12
-    * Apache: 3.14
-- PHP **7.3**. Alpine versions:
-    * PHP-FPM: 3.12
-    * Apache: 3.14
-- PHP **7.2**. Alpine versions:
-    * PHP-FPM: 3.12
-    * Apache: 3.14
+For all versions of PHP it is recommended to use the following versions of Alpine Linux:
+
+* `ALPINE_VERSION_PHP`: 3.12
+* `ALPINE_VERSION_APACHE`: 3.14
 
 ### Limited support for some PHP extensions
 
@@ -37,10 +44,17 @@ PHP extensions CAN NOT be installed with Alpine versions greater than `3.12` and
 * yaml
 * xdebug
 
-Problem that *impossible install PHP extensions from PECL/PEAR*. Please refer to [ISSUES.md](ISSUES.md) document.
+Problem that *impossible install PHP extensions from PECL/PEAR in Alpine Linux versions greater than `3.12`* (please refer to [ISSUES.md](ISSUES.md) document).
+
+This issue irrelevant to the *Debian 12 Bookworm* so you can use Debian for PHP versions `8.1` and `8.2`.
+
 
 CHANGELOG
 ---------
+
+### Version 0.7
+
+* Added support for *Debian 12 Bookworm* and PHP versions `8.1`, `8.2`.
 
 ### Version 0.6
 
@@ -56,8 +70,8 @@ CHANGELOG
 FEATURES
 ========
 
-* [PHP/FCGID](https://hub.docker.com/_/php) - any modern version based on [Alpine linux](https://alpinelinux.org/).
-  Tested with PHP versions 7.2, 7.3, 7.4, 8.0. 
+* [PHP/FCGID](https://hub.docker.com/_/php/tags?page=1&name=fpm-) - any modern version supported by [Alpine Linux](https://alpinelinux.org/) or [Debian Linux](https://www.debian.org/).
+  Tested with PHP versions `7.2`, `7.3`, `7.4`, `8.0`, `8.1`, `8.2`. 
     * opcache
     * xdebug [version 3](https://xdebug.org/docs/)
     * ffmpeg
@@ -246,7 +260,7 @@ docker exec -it docker_test_apache /bin/bash
 ```
 
 Connect PHP container
--------------------------
+---------------------
 
 If required execute some code in the console.
 
