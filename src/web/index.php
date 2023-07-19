@@ -7,6 +7,10 @@ $dbInnodbVersion = null;
 $dbProtocolVersion = null;
 $dbError = null;
 
+$osPrettyName = null;
+$osHomeUrl = null;
+$osError = null;
+
 $yearMin = 2020;
 $yearCur = (int) date('Y');
 
@@ -35,6 +39,21 @@ if (class_exists('\mysqli')) {
     }
 } else {
     $dbError = 'Class "\mysqli" not found!';
+}
+
+$filename = '/etc/os-release';
+if (!is_file($filename)) {
+    $osError = "File '{$filename}' not found.";
+} elseif (!is_readable($filename)) {
+    $osError = "File '{$filename}' not readable.";
+} else {
+    $content = file_get_contents($filename);
+    if (preg_match('/PRETTY_NAME="([^"]+)"/', $content, $m)) {
+        $osPrettyName = $m[1];
+    }
+    if (preg_match('/HOME_URL="([^"]+)"/', $content, $m)) {
+        $osHomeUrl = $m[1];
+    }
 }
 
 $extLinks = [
@@ -134,6 +153,15 @@ $extLinks = [
             <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
             <table>
                 <tr>
+                    <td>OS</td>
+                    <td>
+                        <?= $osPrettyName ? "<strong>$osPrettyName</strong>" : '&lt;UNKNOWN&gt;' ?>
+                        <?php if ($osHomeUrl) : ?>
+                            – <a href="<?= $osHomeUrl ?>"><?= $osHomeUrl ?></a>
+                        <?php endif ?>
+                    </td>
+                </tr>
+                <tr>
                     <td>PHP</td>
                     <td>
                         <?= PHP_VERSION ?>
@@ -144,7 +172,7 @@ $extLinks = [
                     <td>Database</td>
                     <td>
                         <?= ($dbVersion ? $dbVersion : '&lt;UNKNOWN&gt;') ?>
-                        <?= ($dbVersionComment ? " - <i>$dbVersionComment</i>" : '') ?>
+                        <?= ($dbVersionComment ? " – <i>$dbVersionComment</i>" : '') ?>
                     </td>
                 </tr>
                 <tr>

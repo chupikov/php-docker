@@ -26,6 +26,8 @@ RUN apk add --update --no-cache \
     mc \
     curl \
     wget \
+    nano \
+    git \
     ;
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
