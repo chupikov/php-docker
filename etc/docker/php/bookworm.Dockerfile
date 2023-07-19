@@ -70,6 +70,8 @@ RUN echo "${HOST_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${HOST_USER} \
     && chmod 0440 /etc/sudoers.d/${HOST_USER} \
     ;
 
+RUN chown -R ${HOST_UID}:${HOST_GID} /home/${HOST_USER}
+
 WORKDIR /var/www/html
 
 USER ${HOST_UID}:${HOST_GID}
