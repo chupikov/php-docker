@@ -14,6 +14,10 @@ $osError = null;
 $yearMin = 2020;
 $yearCur = (int) date('Y');
 
+
+
+// Detect MySQL/MariaDB version
+
 if (class_exists('\mysqli')) {
     $mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');
     $result = $mysqli->query('SHOW VARIABLES LIKE "%version%"');
@@ -41,6 +45,10 @@ if (class_exists('\mysqli')) {
     $dbError = 'Class "\mysqli" not found!';
 }
 
+
+
+// Detect OS release
+
 $filename = '/etc/os-release';
 if (!is_file($filename)) {
     $osError = "File '{$filename}' not found.";
@@ -53,6 +61,30 @@ if (!is_file($filename)) {
     }
     if (preg_match('/HOME_URL="([^"]+)"/', $content, $m)) {
         $osHomeUrl = $m[1];
+    }
+}
+
+
+
+// Detect version of the miscellaneous CLI tools
+
+$commands = [
+    'GIT' => [
+        'cmd' => 'git --version',
+        're' => '/version\s+([0-9.]+)/',
+        'idx' => 1,
+    ],
+    'Composer' => [
+        'cmd' => 'composer --version',
+        're' => '/version\s+([0-9.]+)/',
+        'idx' => 1,
+    ],
+];
+
+foreach ($commands as $name => $data) {
+    $out = shell_exec($data['cmd']);
+    if (!empty($out) && preg_match($data['re'], $out, $m) && !empty($m[$data['idx']])) {
+        $commands[$name]['version'] = $m[$data['idx']];
     }
 }
 
@@ -179,6 +211,12 @@ $extLinks = [
                     <td>Apache</td>
                     <td><?= $_SERVER['SERVER_SOFTWARE'] ?></td>
                 </tr>
+                <?php foreach ($commands as $name => $data) : ?>
+                    <tr>
+                        <td><?= $name ?></td>
+                    <td><?= isset($data['version']) ? $data['version'] : '&lt;NOT INSTALLED&gt;' ?></td>
+                    </tr>
+                <?php endforeach ?>
             </table>
             <p>Web root directory in the container: <code><?= __DIR__ ?></code></p>
         </section>
