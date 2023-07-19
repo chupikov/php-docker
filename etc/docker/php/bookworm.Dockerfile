@@ -25,6 +25,8 @@ RUN apt install -y \
     mc \
     curl \
     wget \
+    nano \
+    git \
     ;
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -62,11 +64,13 @@ COPY install.sh /root/install.sh
 RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
 SHELL ["/bin/bash", "--rcfile", "/root/.bashrc", "-c"]
 
-# RUN /root/install.sh
+RUN /root/install.sh
 
 RUN echo "${HOST_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${HOST_USER} \
     && chmod 0440 /etc/sudoers.d/${HOST_USER} \
     ;
+
+RUN chown -R ${HOST_UID}:${HOST_GID} /home/${HOST_USER}
 
 WORKDIR /var/www/html
 

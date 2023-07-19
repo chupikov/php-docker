@@ -26,6 +26,8 @@ RUN apk add --update --no-cache \
     mc \
     curl \
     wget \
+    nano \
+    git \
     ;
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -94,6 +96,8 @@ RUN /root/install.sh
 RUN echo "${HOST_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${HOST_USER} \
     && chmod 0440 /etc/sudoers.d/${HOST_USER} \
     ;
+
+RUN chown -R ${HOST_UID}:${HOST_GID} /home/${HOST_USER}
 
 WORKDIR /var/www/html
 

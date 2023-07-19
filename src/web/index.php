@@ -7,8 +7,16 @@ $dbInnodbVersion = null;
 $dbProtocolVersion = null;
 $dbError = null;
 
+$osPrettyName = null;
+$osHomeUrl = null;
+$osError = null;
+
 $yearMin = 2020;
 $yearCur = (int) date('Y');
+
+
+
+// Detect MySQL/MariaDB version
 
 if (class_exists('\mysqli')) {
     $mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');
@@ -35,6 +43,49 @@ if (class_exists('\mysqli')) {
     }
 } else {
     $dbError = 'Class "\mysqli" not found!';
+}
+
+
+
+// Detect OS release
+
+$filename = '/etc/os-release';
+if (!is_file($filename)) {
+    $osError = "File '{$filename}' not found.";
+} elseif (!is_readable($filename)) {
+    $osError = "File '{$filename}' not readable.";
+} else {
+    $content = file_get_contents($filename);
+    if (preg_match('/PRETTY_NAME="([^"]+)"/', $content, $m)) {
+        $osPrettyName = $m[1];
+    }
+    if (preg_match('/HOME_URL="([^"]+)"/', $content, $m)) {
+        $osHomeUrl = $m[1];
+    }
+}
+
+
+
+// Detect version of the miscellaneous CLI tools
+
+$commands = [
+    'GIT' => [
+        'cmd' => 'git --version',
+        're' => '/version\s+([0-9.]+)/',
+        'idx' => 1,
+    ],
+    'Composer' => [
+        'cmd' => 'composer --version',
+        're' => '/version\s+([0-9.]+)/',
+        'idx' => 1,
+    ],
+];
+
+foreach ($commands as $name => $data) {
+    $out = shell_exec($data['cmd']);
+    if (!empty($out) && preg_match($data['re'], $out, $m) && !empty($m[$data['idx']])) {
+        $commands[$name]['version'] = $m[$data['idx']];
+    }
 }
 
 $extLinks = [
@@ -134,6 +185,15 @@ $extLinks = [
             <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
             <table>
                 <tr>
+                    <td>OS</td>
+                    <td>
+                        <?= $osPrettyName ? "<strong>$osPrettyName</strong>" : '&lt;UNKNOWN&gt;' ?>
+                        <?php if ($osHomeUrl) : ?>
+                            – <a href="<?= $osHomeUrl ?>"><?= $osHomeUrl ?></a>
+                        <?php endif ?>
+                    </td>
+                </tr>
+                <tr>
                     <td>PHP</td>
                     <td>
                         <?= PHP_VERSION ?>
@@ -144,13 +204,19 @@ $extLinks = [
                     <td>Database</td>
                     <td>
                         <?= ($dbVersion ? $dbVersion : '&lt;UNKNOWN&gt;') ?>
-                        <?= ($dbVersionComment ? " - <i>$dbVersionComment</i>" : '') ?>
+                        <?= ($dbVersionComment ? " – <i>$dbVersionComment</i>" : '') ?>
                     </td>
                 </tr>
                 <tr>
                     <td>Apache</td>
                     <td><?= $_SERVER['SERVER_SOFTWARE'] ?></td>
                 </tr>
+                <?php foreach ($commands as $name => $data) : ?>
+                    <tr>
+                        <td><?= $name ?></td>
+                    <td><?= isset($data['version']) ? $data['version'] : '&lt;NOT INSTALLED&gt;' ?></td>
+                    </tr>
+                <?php endforeach ?>
             </table>
             <p>Web root directory in the container: <code><?= __DIR__ ?></code></p>
         </section>
