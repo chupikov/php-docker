@@ -52,6 +52,16 @@ This issue irrelevant to the *Debian 12 Bookworm* so you can use Debian for PHP 
 CHANGELOG
 ---------
 
+### Version 0.9
+
+* Improved PHP version configuration. From now on each supported PHP version has own Dockerfile for configuration enough define PHP version only.
+* Added complete Dockerfiles for PHP versions:
+    * 7.4 (Alpine 3.12)
+    * 8.0 (Alpine 3.16)
+    * 8.1 (Alpine 3.21)
+    * 8.2 (Alpine 3.21)
+* Environment variable `ALPINE_VERSION_PHP` unused in the new Dockerfiles.
+
 ### Version 0.7
 
 * Added support for *Debian 12 Bookworm* and PHP versions `8.1`, `8.2`.

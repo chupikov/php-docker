@@ -1,5 +1,3 @@
-version: "3.3"
-
 secrets:
   ssh_key:
     file: ~/.ssh/id_rsa
@@ -11,10 +9,11 @@ services:
     build:
       context: "${PROJECT_DIR}/docker/php/"
       # dockerfile: "alpine.Dockerfile"
-      dockerfile: "bookworm.Dockerfile"
+      # dockerfile: "bookworm.Dockerfile"
+      dockerfile: "${DOCKER_PHP_VERSION}.Dockerfile"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
-        ALPINE_VERSION_PHP: ${ALPINE_VERSION_PHP}
+        # ALPINE_VERSION_PHP: ${ALPINE_VERSION_PHP}
         HOST_USER: ${HOST_USER}
         HOST_UID: ${HOST_UID}
         HOST_GID: ${HOST_GID}
