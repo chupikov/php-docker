@@ -10,7 +10,7 @@ services:
       context: "${PROJECT_DIR}/docker/php/"
       # dockerfile: "alpine.Dockerfile"
       # dockerfile: "bookworm.Dockerfile"
-      dockerfile: "${DOCKER_PHP_VERSION}.Dockerfile"
+      dockerfile: "php-${DOCKER_PHP_VERSION}.Dockerfile"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
         HOST_USER: ${HOST_USER}
