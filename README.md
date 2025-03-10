@@ -10,47 +10,42 @@ Universal Docker solution for PHP
 SUPPORTED PHP VERSIONS
 ----------------------
 
-PHP versions listed below was successfully tested.
-
-### PHP under Debian Bookworm Linux
-
-Debian 12 Bookworm supports only PHP versions:
-
-- **8.2**
-- **8.1**
-
-It is recommended to use Apache based on Alpine version `3.14`.
-
-### PHP under Alpine Linux
-
-- **8.0**
-- **7.4**
-- **7.3**
-- **7.2**
+- **8.4** (Alpine 3.21)
+- **8.3** (Alpine 3.21)
+- **8.2** (Alpine 3.21)
+- **8.1** (Alpine 3.21)
+- **8.0** (Alpine 3.16)
+- **7.4** (Alpine 3.12)
+- **7.3** (Alpine 3.12; Dockerfile not included)
+- **7.2** (Alpine 3.12; Dockerfile not included)
 
 PHP versions prior `7.2` not supported by Alpine version `3.12`.
-
-For all versions of PHP it is recommended to use the following versions of Alpine Linux:
-
-* `ALPINE_VERSION_PHP`: 3.12
-* `ALPINE_VERSION_APACHE`: 3.14
-
-### Limited support for some PHP extensions
-
-PHP extensions CAN NOT be installed with Alpine versions greater than `3.12` and can be supported only with PHP versions `7.2`, `7.3`, `7.4`, `8.0`:
-
-* imagick
-* igbinary
-* yaml
-* xdebug
-
-Problem that *impossible install PHP extensions from PECL/PEAR in Alpine Linux versions greater than `3.12`* (please refer to [ISSUES.md](ISSUES.md) document).
-
-This issue irrelevant to the *Debian 12 Bookworm* so you can use Debian for PHP versions `8.1` and `8.2`.
 
 
 CHANGELOG
 ---------
+
+### Version 0.9
+
+* Uses only Alpine Linux for all supported PHP versions.
+* Improved PHP version configuration. From now on each supported PHP version has own Dockerfile for configuration enough define PHP version only.
+* Added complete Dockerfiles for PHP versions:
+    * 7.4 (Alpine 3.12)
+    * 8.0 (Alpine 3.16)
+    * 8.1 (Alpine 3.21)
+    * 8.2 (Alpine 3.21)
+    * 8.3 (Alpine 3.21)
+    * 8.4 (Alpine 3.21)
+* Environment variable `ALPINE_VERSION_PHP` unused in the new Dockerfiles.
+* Environment variables removed from Apache Dockerfile:
+    * `ALPINE_VERSION_APACHE`
+    * `DOCKER_APACHE_VERSION`
+* Apache Docker container:
+    * Uses Alpine version 3.21
+    * Uses Apache version 2.4
+    * Uses PHP version 8.3
+    * Excluded PHP extensions `php83-pecl-mcrypt` and `php83-pecl-xmlrpc`
+* MariaDB working in Windows environment.
 
 ### Version 0.7
 
@@ -67,6 +62,7 @@ CHANGELOG
 
 * Added support for [Xdebug 3](https://xdebug.org/docs/).
 
+
 FEATURES
 ========
 
@@ -80,10 +76,6 @@ FEATURES
 * Database: [MySQL](https://hub.docker.com/_/mysql) or [MariaDB](https://hub.docker.com/_/mariadb) - any modern version
 * Web server: Apache 2.4
 
-Tested with PHP frameworks and CMS
-----------------------------------
-
-* [Wordpress](https://wordpress.org/) 5.4.1.
 
 DIRECTORY STRUCTURE
 ===================
@@ -106,9 +98,6 @@ KNOWN ISSUES
 
 See [ISSUES.md](ISSUES.md):
 
-- MariaDB does not start on Windows hosts
-- Impossible install from PECL/PEAR
-- Impossible start containers because of Docker network IPv6 error
 
 INSTALL
 =======
@@ -116,7 +105,10 @@ INSTALL
 After clone/copy source files:
 
 1. Copy `.env.sample` to `.env`.
-2. Configure `.env`.
+2. Configure `.env`:
+    * Define PHP version.
+    * Define database engine and version.
+    * Optionally define other environment variables.
 3. Run `bin/init.sh` - script creates required files and  directories.
 4. Configure PHP `etc/docker/php/php.ini`.
 5. Configure Apache `etc/docker/apache/apache.conf`.
@@ -136,7 +128,7 @@ Possible values:
 
 * [mariadb](https://hub.docker.com/_/mariadb)
     * DOCKER_DATABASE_ENGINE=mariadb
-    * DOCKER_DATABASE_VERSION=10.3
+    * DOCKER_DATABASE_VERSION=11.7
 * [mysql](https://hub.docker.com/_/mysql)
     * DOCKER_DATABASE_ENGINE=mysql
     * DOCKER_DATABASE_VERSION=5.7
@@ -146,7 +138,6 @@ XDEBUG
 
 Supporting versions:
 * [Xdebug version 3](https://xdebug.org/docs/) by default (see [Upgrading from Xdebug 2 to 3](https://xdebug.org/docs/upgrade_guide)).
-* [Xdebug version 2](https://2.xdebug.org/docs/) (link available Dec 31st, 2021) can be configured.
 
 Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
 
@@ -361,4 +352,4 @@ COPYRIGHT
 =========
 
 * (c) 2019 Nimpen J. Nordstr�m
-* (c) 2019-2022 Yaroslav Chupikov
+* (c) 2019-2025 Yaroslav Chupikov
