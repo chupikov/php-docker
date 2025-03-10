@@ -27,6 +27,7 @@ CHANGELOG
 
 ### Version 0.9
 
+* Uses only Alpine Linux for all supported PHP versions.
 * Improved PHP version configuration. From now on each supported PHP version has own Dockerfile for configuration enough define PHP version only.
 * Added complete Dockerfiles for PHP versions:
     * 7.4 (Alpine 3.12)
@@ -36,6 +37,14 @@ CHANGELOG
     * 8.3 (Alpine 3.21)
     * 8.4 (Alpine 3.21)
 * Environment variable `ALPINE_VERSION_PHP` unused in the new Dockerfiles.
+* Environment variables removed from Apache Dockerfile:
+    * `ALPINE_VERSION_APACHE`
+    * `DOCKER_APACHE_VERSION`
+* Apache Docker container:
+    * Uses Alpine version 3.21
+    * Uses Apache version 2.4
+    * Uses PHP version 8.3
+    * Excluded PHP extensions `php83-pecl-mcrypt` and `php83-pecl-xmlrpc`
 
 ### Version 0.7
 

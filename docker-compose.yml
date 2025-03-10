@@ -13,7 +13,6 @@ services:
       dockerfile: "${DOCKER_PHP_VERSION}.Dockerfile"
       args:
         PHP_VERSION: ${DOCKER_PHP_VERSION}
-        # ALPINE_VERSION_PHP: ${ALPINE_VERSION_PHP}
         HOST_USER: ${HOST_USER}
         HOST_UID: ${HOST_UID}
         HOST_GID: ${HOST_GID}
@@ -31,11 +30,9 @@ services:
       - /etc/group:/etc/group:ro
       - /etc/passwd:/etc/passwd:ro
       - /etc/shadow:/etc/shadow:ro
-      # - /etc/sudoers.d:/etc/sudoers.d:ro
       - ~/.gitconfig:/home/${HOST_USER}/.gitconfig:ro
       - ${PROJECT_DIR}/docker/php/.bashrc:/home/${HOST_USER}/.bashrc
     environment:
-#      XDEBUG_CONFIG: "remote_host=${DOCKER_XDEBUG_REMOTE_HOST} remote_enable=1 remote_handler=dbgp remote_cookie_expire_time=21600"
       XDEBUG_CONFIG: "client_host=${DOCKER_XDEBUG_REMOTE_HOST}"
       HOST_USER: ${HOST_USER}
       HOST_UID: ${HOST_UID}
@@ -46,9 +43,6 @@ services:
     build:
       context: ${PROJECT_DIR}/docker/apache/
       dockerfile: "Dockerfile"
-      args:
-        APACHE_VERSION: ${DOCKER_APACHE_VERSION}
-        ALPINE_VERSION_APACHE: ${ALPINE_VERSION_APACHE}
     depends_on:
       - php
       - database
