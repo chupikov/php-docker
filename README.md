@@ -45,6 +45,7 @@ CHANGELOG
     * Uses Apache version 2.4
     * Uses PHP version 8.3
     * Excluded PHP extensions `php83-pecl-mcrypt` and `php83-pecl-xmlrpc`
+* MariaDB working in Windows environment.
 
 ### Version 0.7
 
@@ -97,8 +98,6 @@ KNOWN ISSUES
 
 See [ISSUES.md](ISSUES.md):
 
-- MariaDB does not start on Windows hosts
-
 
 INSTALL
 =======
@@ -136,7 +135,6 @@ XDEBUG
 
 Supporting versions:
 * [Xdebug version 3](https://xdebug.org/docs/) by default (see [Upgrading from Xdebug 2 to 3](https://xdebug.org/docs/upgrade_guide)).
-* [Xdebug version 2](https://2.xdebug.org/docs/) (link available Dec 31st, 2021) can be configured.
 
 Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
 
