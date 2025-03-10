@@ -105,7 +105,10 @@ INSTALL
 After clone/copy source files:
 
 1. Copy `.env.sample` to `.env`.
-2. Configure `.env`.
+2. Configure `.env`:
+    * Define PHP version.
+    * Define database engine and version.
+    * Optionally define other environment variables.
 3. Run `bin/init.sh` - script creates required files and  directories.
 4. Configure PHP `etc/docker/php/php.ini`.
 5. Configure Apache `etc/docker/apache/apache.conf`.
