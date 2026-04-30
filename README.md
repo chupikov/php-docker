@@ -1,11 +1,9 @@
 Universal Docker solution for PHP
 =================================
 
-* Environment configured according to this article: https://�.se/damp-docker-apache-mariadb-php-fpm/
-* Using [mlocati/docker-php-extension-installer](https://github.com/mlocati/docker-php-extension-installer)
-  by Michele Locati for install PHP extensions. 
-* Using docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
-
+* Environment configured according to this article: https://.se/damp-docker-apache-mariadb-php-fpm/
+* Using [mlocati/docker-php-extension-installer](https://github.com/mlocati/docker-php-extension-installer) by Michele Locati to install PHP extensions. 
+* Using the docker exec command: https://linoxide.com/linux-how-to/ssh-docker-container/
 
 SUPPORTED PHP VERSIONS
 ----------------------
@@ -20,7 +18,7 @@ SUPPORTED PHP VERSIONS
 - **7.3** (Alpine 3.12; Dockerfile not included)
 - **7.2** (Alpine 3.12; Dockerfile not included)
 
-PHP versions prior `7.2` not supported by Alpine version `3.12`.
+PHP versions prior to `7.2` are not supported by Alpine version `3.12`.
 
 
 CHANGELOG
@@ -28,8 +26,8 @@ CHANGELOG
 
 ### Version 0.10
 
-* Added support for PHP 8.5
-* Updated Alpine version for PHP versions:
+* Added support for PHP 8.5.
+* Updated Alpine version for the following PHP versions:
     * 7.4 (Alpine 3.16)
     * 8.0 (Alpine 3.16)
     * 8.1 (Alpine 3.22)
@@ -40,7 +38,7 @@ CHANGELOG
 ### Version 0.9
 
 * Uses only Alpine Linux for all supported PHP versions.
-* Improved PHP version configuration. From now on each supported PHP version has own Dockerfile for configuration enough define PHP version only.
+* Improved PHP version configuration. Each supported PHP version now has its own Dockerfile; it is now sufficient to define the PHP version only.
 * Added complete Dockerfiles for PHP versions:
     * 7.4 (Alpine 3.12)
     * 8.0 (Alpine 3.16)
@@ -48,8 +46,8 @@ CHANGELOG
     * 8.2 (Alpine 3.21)
     * 8.3 (Alpine 3.21)
     * 8.4 (Alpine 3.21)
-* Environment variable `ALPINE_VERSION_PHP` unused in the new Dockerfiles.
-* Environment variables removed from Apache Dockerfile:
+* Environment variable `ALPINE_VERSION_PHP` is unused in the new Dockerfiles.
+* Environment variables removed from the Apache Dockerfile:
     * `ALPINE_VERSION_APACHE`
     * `DOCKER_APACHE_VERSION`
 * Apache Docker container:
@@ -57,7 +55,7 @@ CHANGELOG
     * Uses Apache version 2.4
     * Uses PHP version 8.3
     * Excluded PHP extensions `php83-pecl-mcrypt` and `php83-pecl-xmlrpc`
-* MariaDB working in Windows environment.
+* MariaDB is now working in Windows environments.
 
 ### Version 0.7
 
@@ -65,7 +63,7 @@ CHANGELOG
 
 ### Version 0.6
 
-* Fixed issue with non-working PECL (see [ISSUES.md](ISSUES.md)) by downgrading Alpine version to `3.12`.
+* Fixed an issue with non-working PECL (see [ISSUES.md](ISSUES.md)) by downgrading the Alpine version to `3.12`.
 * Introduced new environment variables:
     * `ALPINE_VERSION_PHP`
     * `ALPINE_VERSION_APACHE`
@@ -114,16 +112,16 @@ See [ISSUES.md](ISSUES.md):
 INSTALL
 =======
 
-After clone/copy source files:
+After cloning/copying source files:
 
 1. Copy `.env.sample` to `.env`.
 2. Configure `.env`:
-    * Define PHP version.
-    * Define database engine and version.
+    * Define the PHP version.
+    * Define the database engine and version.
     * Optionally define other environment variables.
-3. Run `bin/init.sh` - script creates required files and  directories.
-4. Configure PHP `etc/docker/php/php.ini`.
-5. Configure Apache `etc/docker/apache/apache.conf`.
+3. Run `bin/init.sh` - the script creates required files and directories.
+4. Configure PHP in `etc/docker/php/php.ini`.
+5. Configure Apache in `etc/docker/apache/apache.conf`.
 
 
 CONFIGURATION
@@ -132,7 +130,7 @@ CONFIGURATION
 Database
 --------
 
-In purpose of disable database access from frontend network comment `frontend` network in the `docker-compose.yml` file.
+To disable database access from the frontend network, comment out the `frontend` network in the `docker-compose.yml` file.
 
 ### DOCKER_DATABASE_ENGINE
 
@@ -148,27 +146,25 @@ Possible values:
 XDEBUG
 ------
 
-Supporting versions:
+Supported versions:
 * [Xdebug version 3](https://xdebug.org/docs/) by default (see [Upgrading from Xdebug 2 to 3](https://xdebug.org/docs/upgrade_guide)).
 
-Define correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
+Define the correct value for `DOCKER_XDEBUG_REMOTE_HOST` in the `.env` file.
 
-For Linux hosts value could be **172.17.0.1**.
+For Linux hosts, the value could be **172.17.0.1**.
 
-For Windows hosts value should be **host.docker.internal**.
+For Windows hosts, the value should be **host.docker.internal**.
 
 Web root directory
 ------------------
 
-By default `./src` is a _PHP project root directory_
-and `./src/web` is a _web root directory_.
+By default, `./src` is the _PHP project root directory_ and `./src/web` is the _web root directory_.
 
-In some cases (for example because of used PHP framework requirements)
-_web root directory_ need to be changed.
+In some cases (for example, due to PHP framework requirements), the _web root directory_ needs to be changed.
 
 ### Rename web root directory
 
-For example rename `./src/web` to `./src/public`.
+For example, to rename `./src/web` to `./src/public`:
 
 1. Rename directory `./src/web` to `./src/public`.
 2. Edit `etc/docker/apache/apache.conf` file, update `/var/www/html/web` to `/var/www/html/public`, for example:
@@ -185,10 +181,10 @@ For example rename `./src/web` to `./src/public`.
 	</Directory>
 ```
 
-### Make root web directory equals to `src` directory
+### Make the root web directory equal to the `src` directory
 
-1. Directory `./src/web` isn't required anymore, you can delete it.
-2. Edit `etc/docker/apache/apache.conf` file, update `/var/www/html/web` to `/var/www/html`, for example:
+1. Directory `./src/web` is no longer required; you can delete it.
+2. Edit the `etc/docker/apache/apache.conf` file and update `/var/www/html/web` to `/var/www/html`. For example:
 ```
 	ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/var/www/html/$1
 
@@ -202,29 +198,27 @@ For example rename `./src/web` to `./src/public`.
 	</Directory>
 ```
 
-System user within Docker container
------------------------------------
+System user within the Docker container
+---------------------------------------
 
-Docker configured in the way which allows use in the `php` container:
+Docker is configured in a way that allows you to use the following within the `php` container:
 
-* your system username, UID and GID (as defined in host machine) as files owner;
-* your GIT configuration;
-* your private SSH key.
+* Your system username, UID, and GID (as defined on the host machine) as the file owner.
+* Your GIT configuration.
+* Your private SSH key.
 
-In purpose of configure this feature need to be defined environment variables in the `.env` file:
+To configure this feature, define the following environment variables in the `.env` file:
 
-* `HOST_USER` - name of your system user.
-* `HOST_UID` - UID of your system user.
-* `HOST_GID` - GID of your system user.
-
-For example:
+* `HOST_USER` - the name of your system user.
+* `HOST_UID` - the UID of your system user.
+* `HOST_GID` - the GID of your system user.
 
 ```.env
 HOST_USER=user
 HOST_UID=1000
 HOST_GID=1000
 ```
-**WARNING!** If defined incorrectly then containers might not up.
+**WARNING!** If defined incorrectly, containers might not start.
 
 USAGE
 =====
@@ -243,52 +237,52 @@ Stop
 docker-compose down
 ```
 
-Connect database container
--------------------------
+Connect to the database container
+---------------------------------
 
-If required some actions in the database with root privileges.
+If actions are required in the database with root privileges:
 
 ```sh
 docker exec -it docker_test_mysql /bin/bash
 mysql
 ```
 
-Connect Apache container
--------------------------
+Connect to the Apache container
+-------------------------------
 
-If required execute some code in the console.
+If you need to execute code in the console:
 
 ```sh
 docker exec -it docker_test_apache /bin/bash
 ```
 
-Connect PHP container
----------------------
+Connect to the PHP container
+----------------------------
 
-If required execute some code in the console.
+If you need to execute code in the console:
 
 ```sh
 docker exec -it docker_test_php /bin/bash
 ```
 
-Connect database from host computer
------------------------------------
+Connect to the database from the host computer
+----------------------------------------------
 
 ```sh
 mysql -h 127.0.0.1 -u <DOCKER_DB_USERNAME> -p <DOCKER_DB_NAME>
 ```
 
-Use value of the <DOCKER_DB_PASSWORD> as password.
+Use value of <DOCKER_DB_PASSWORD> as the password.
 
-In purpose of connect database as **root user** please refer to chapter _"Connect database container"_ above.
+To connect to the database as the **root user**, please refer to the "Connect to the database container" section above.
 
 
-Connect database from PHP
--------------------------
+Connect to the database from PHP
+--------------------------------
 
-Use `database` (service name from "docker-compose.yml") as host name.
+Use `database` (service name from "docker-compose.yml") as the host name.
 
-For example:
+Example:
 
 ```php
 $mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');
@@ -364,4 +358,4 @@ COPYRIGHT
 =========
 
 * (c) 2019 Nimpen J. Nordstr�m
-* (c) 2019-2025 Yaroslav Chupikov
+* (c) 2019-2026 Yaroslav Chupikov
