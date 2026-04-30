@@ -25,6 +25,16 @@ PHP versions prior `7.2` not supported by Alpine version `3.12`.
 CHANGELOG
 ---------
 
+### Version 0.10
+
+* Updated Alpine version for PHP versions:
+    * 7.4 (Alpine 3.16)
+    * 8.0 (Alpine 3.16)
+    * 8.1 (Alpine 3.22)
+    * 8.2 (Alpine 3.23)
+    * 8.3 (Alpine 3.23)
+    * 8.4 (Alpine 3.23)
+
 ### Version 0.9
 
 * Uses only Alpine Linux for all supported PHP versions.
