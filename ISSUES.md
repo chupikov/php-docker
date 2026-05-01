@@ -4,7 +4,7 @@ KNOWN ISSUES
 Network IPv6 error
 ------------------
 
-Some time ago was impossible start containers because of Docker network error:
+Some time ago, it was impossible to start containers because of a Docker network error:
 
 ```
  ⠿ Network src_backend
@@ -13,9 +13,9 @@ Some time ago was impossible start containers because of Docker network error:
 failed to create network src_backend: Error response from daemon: could not find an available, non-overlapping IPv6 address pool among the defaults to assign to the network
 ```
 
-Reason is unknown.
+The reason is unknown.
 
-**Solution**: Disable IPv6 for networks in the `docker-compose.yml`:
+**Solution**: Disable IPv6 for networks in `docker-compose.yml`:
 
 ```yaml
 networks:
