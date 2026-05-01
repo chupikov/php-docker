@@ -1,4 +1,4 @@
-FROM httpd:2.4-alpine3.21
+FROM httpd:2.4-alpine3.23
 
 RUN mkdir -p /root/.ssh && ln -s /run/secrets/ssh_key /root/.ssh/id_rsa
 
