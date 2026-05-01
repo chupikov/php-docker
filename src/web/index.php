@@ -65,6 +65,32 @@ if (!is_file($filename)) {
 }
 
 
+// Load list of the Apache modules
+
+$configDir = '/usr/local/apache2/conf';
+$configPath = "{$configDir}/httpd.conf";
+$apacheModules = [];
+
+if (file_exists($configPath) && is_readable($configPath)) {
+    $pattern = '/^LoadModule\s+([^\s]+)\s+([^\s]+)/';
+    $lines = file($configPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    foreach ($lines as $line) {
+        $line = trim($line);
+        
+        if (preg_match($pattern, $line, $matches)) {
+            $apacheModules[] = [
+                'name' => $matches[1],
+                'path' => $matches[2]
+            ];
+        }
+    }
+
+    usort($apacheModules, static function($a, $b) {
+        return $a['name'] <=> $b['name'];
+    });
+}
+
 
 // Detect version of the miscellaneous CLI tools
 
@@ -265,6 +291,19 @@ $extLinks = [
                     </li>
                 <?php endforeach ?>
             </ol>
+        </section>
+
+        <section>
+            <h2>Available Apache Modules</h2>
+            <?php if (!empty($apacheModules)) : ?>
+                <ol class="with-columns">
+                <?php foreach ($apacheModules as $module) : ?>
+                    <li><?= $module['name'] ?></li>
+                <?php endforeach ?>
+                </ol>
+            <?php else : ?>
+                <div class="error">Apache modules not found.</div>
+            <?php endif ?>
         </section>
 
         <hr />
