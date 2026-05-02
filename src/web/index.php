@@ -201,14 +201,14 @@ $extLinks = [
             <p>
                 PHP-FPM
                     <i>
-                        (with<?php if (! extension_loaded('Zend OPcache')) : ?>out<?php endif ?> opcache,
-                        with<?php if (! extension_loaded('xdebug')) : ?>out<?php endif ?> xdebug),
+                        (with<?php if (! extension_loaded('Zend OPcache')) : ?>out<?php endif ?> Opcache,
+                        with<?php if (! extension_loaded('xdebug')) : ?>out<?php endif ?> Xdebug),
                     </i>
-                <?= $dbVersionId ?>,
-                Apache
+                <?= $dbVersionId ?>
+                and Apache
                 - powered by <a href="https://docs.docker.com/"><b>Docker</b></a>.
             </p>
-            <p>Based on article <a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>.</p>
+            <p>Inspired by the article "<a href="https://á.se/damp-docker-apache-mariadb-php-fpm/">DAMP – Docker, Apache, MariaDB &amp; PHP-FPM</a>".</p>
             <table>
                 <tr>
                     <td>OS</td>
@@ -248,9 +248,9 @@ $extLinks = [
         </section>
 
         <section>
-            <h2>Connect database from PHP</h2>
+            <h2>Connect to the Database from PHP</h2>
             <p>Use "<code>database</code>" (service name from "docker-compose.yml") as MySQL host name.</p>
-            <p>For example:</p>
+            <p>Example:</p>
             <pre class="code">$mysqli = new \mysqli('database', 'docker_test', 'docker_test', 'docker_test');</pre>
         </section>
 
