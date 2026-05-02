@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine3.16
+FROM php:8.5-fpm-alpine3.23
 
 ARG HOST_USER=default
 ARG HOST_UID=1000
