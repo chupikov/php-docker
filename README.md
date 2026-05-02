@@ -27,6 +27,7 @@ CHANGELOG
 ### Version 0.10
 
 * Added support for PHP 8.5.
+* Alpine version in the Apache container set to 3.23.
 * Updated Alpine version for the following PHP versions:
     * 7.4 (Alpine 3.16)
     * 8.0 (Alpine 3.16)
@@ -302,56 +303,84 @@ PHP Extensions
 Installed PHP extensions
 ------------------------
 
-See also [Extensions available for "docker-php-ext-install"](etc/available-extensions.md) and [Extensions available for "mlocati/docker-php-extension-installer"](https://github.com/mlocati/docker-php-extension-installer).
+See also [Extensions available for the "docker-php-ext-install"](etc/available-extensions.md) and [Extensions supported by the "mlocati/docker-php-extension-installer"](https://github.com/mlocati/docker-php-extension-installer#supported-php-extensions).
 
-1. bz2
-1. cgi-fcgi
-1. core
-1. ctype
-1. curl
-1. date
-1. dom
-1. exif
-1. fileinfo
-1. filter
-1. ftp
-1. gd
-1. gettext
-1. hash
-1. iconv
-1. igbinary
-1. imagick
-1. intl
-1. json
-1. libxml
-1. mbstring
-1. mysqli
-1. mysqlnd
-1. openssl
-1. pcre
-1. pdo
-1. pdo_mysql
-1. pdo_sqlite
-1. phar
-1. posix
-1. readline
-1. reflection
-1. session
-1. simplexml
-1. soap
-1. sodium
-1. spl
-1. sqlite3
-1. standard
-1. tokenizer
-1. xdebug
-1. xml
-1. xmlreader
-1. xmlwriter
-1. yaml
-1. zend opcache
-1. zip
-1. zlib
+* bz2
+* cgi-fcgi
+* core
+* ctype
+* curl
+* date
+* dom
+* exif
+* fileinfo
+* filter
+* ftp
+* gd
+* gettext
+* hash
+* iconv
+* igbinary
+* imagick
+* intl
+* json
+* libxml
+* mbstring
+* mysqli
+* mysqlnd
+* openssl
+* pcre
+* pdo
+* pdo_mysql
+* pdo_sqlite
+* phar
+* posix
+* readline
+* reflection
+* session
+* simplexml
+* soap
+* sodium
+* spl
+* sqlite3
+* standard
+* tokenizer
+* xdebug
+* xml
+* xmlreader
+* xmlwriter
+* yaml
+* zend opcache
+* zip
+* zlib
+
+
+Installed Apache modules
+------------------------
+
+* access_compat_module
+* alias_module
+* auth_basic_module
+* authn_core_module
+* authn_file_module
+* authz_core_module
+* authz_groupfile_module
+* authz_host_module
+* authz_user_module
+* autoindex_module
+* dir_module
+* env_module
+* filter_module
+* headers_module
+* log_config_module
+* mime_module
+* mpm_event_module
+* reqtimeout_module
+* rewrite_module
+* setenvif_module
+* status_module
+* unixd_module
+* version_module
 
 
 COPYRIGHT
