@@ -32,6 +32,8 @@ services:
       - /etc/shadow:/etc/shadow:ro
       - ~/.gitconfig:/home/${HOST_USER}/.gitconfig:ro
       - ${PROJECT_DIR}/docker/php/.bashrc:/home/${HOST_USER}/.bashrc
+      - apache_config:/usr/local/apache2/conf:ro
+      - apache_modules:/usr/local/apache2/modules:ro
     environment:
       XDEBUG_CONFIG: "client_host=${DOCKER_XDEBUG_REMOTE_HOST}"
       HOST_USER: ${HOST_USER}
@@ -55,6 +57,8 @@ services:
       - ${PROJECT_DIR}/docker/apache/sites-enabled/:/usr/local/apache2/conf/sites-enabled/
       - ${SRC_ROOT_DIR}/:/var/www/html/
       - ${WEB_LOGS_DIR}/:/var/log/apache2/
+      - apache_config:/usr/local/apache2/conf
+      - apache_modules:/usr/local/apache2/modules
 
   database:
     container_name: "${CONTAINER_NAME_DATABASE}"
@@ -92,3 +96,7 @@ networks:
     enable_ipv6: false
   frontend:
     enable_ipv6: false
+
+volumes:
+  apache_config:
+  apache_modules:
