@@ -1,6 +1,5 @@
-/.idea
+# Project files
 
-/.env
 !/logs
 /logs/*
 !/etc/docker/database/data
@@ -11,3 +10,56 @@
 /etc/docker/php/php.ini
 !/etc/docker/apache/sites-enabled
 /etc/docker/apache/sites-enabled/*.conf
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/settings.json
+
+# IDE/Editor
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/
+!.vscode/extensions.json
+.vim/
+
+# Dependencies
+vendor/
+node_modules/
+composer.lock
+package-lock.json
+yarn.lock
+
+# Environment
+/.env
+.env.local
+.env.*.local
+
+# Cache and temporary files
+*.cache
+.cache/
+tmp/
+temp/
+*.log
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# OS specific
+._*
+.AppleDouble
+.LSOverride
+.TemporaryItems
+ehthumbs.db
+*.cab
+
+# Backup
+*.bak
+*.bak.*
+*.[0-9][0-9]
+*.[0-9][0-9].*
